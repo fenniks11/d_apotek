@@ -1,6 +1,6 @@
 <!-- CKEDITOR -->
-<script src="<?= base_url() ?>ckeditor/ckeditor.js"></script>
-<script src="<?= base_url() ?>ckeditor/js/sample.js"></script>
+<!-- <script src="<?= base_url() ?>ckeditor/ckeditor.js"></script>
+<script src="<?= base_url() ?>ckeditor/js/sample.js"></script> -->
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
 
@@ -93,7 +93,8 @@
                                                             <tr id="row_obat_1" class="row_obat">
                                                                 <td>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" class="form-control lg" id="cari-obat" placeholder="Ketik nama obat" name="id_obat[]" onclick="tampilStok(this)">
+                                                                        <input type="text" class="form-control lg in_nama_obat" placeholder="Ketik nama obat" name="id_obat[]" onchange="tampilStok(this)">
+                                                                        <input type="text" class="in_id_obat" hidden>
                                                                         <?= form_error('id_obat') ?>
                                                                     </div>
                                                                 </td>
@@ -147,69 +148,69 @@
 
     </div>
 
-    <script type="text/javascript">
-        $(function() {
+    <script src="<?= base_url() ?>assets/js/jquery/jquery-2.1.1.js"></script>
+
+    <script>
+        var rn = 1,
+            current_max_row = 1,
+            list_obat = [],
+            list_detail = {}; // index row id
+
+        Array.prototype.remove = function() {
+            var what, a = arguments,
+                L = a.length,
+                ax;
+            while (L && this.length) {
+                what = a[--L];
+                while ((ax = this.indexOf(what)) !== -1) {
+                    this.splice(ax, 1);
+                }
+            }
+            return this;
+        };
+
+        (async () => { // run once
+            $.ajax({
+                url: "<?= base_url() ?>penjualan/obat_search",
+                success: function(resp) {
+                    list_detail = JSON.parse(resp);
+                    for (const x in list_detail) list_obat.push(x);
+                    current_max_row = list_obat.length;
+                },
+                dataType: "html"
+            })
+        })()
+
+        $(() => {
             $("#cari-nama").autocomplete({
                 source: '<?= base_url('penjualan/user_search') ?>',
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(function() {
-            $("#cari-obat").autocomplete({
-                source: '<?= base_url('penjualan/obat_search') ?>',
-            });
-        });
-    </script>
+        })
 
-    <script src="<?= base_url() ?>assets/js/jquery/jquery-2.1.1.js"></script>
-    <script>
-        var rn = 1,
-            current_max_row = 1; // index row id
+        var reassign = () => $(function() {
+            $(".in_nama_obat").autocomplete({
+                source: list_obat,
+            }).on("autocompleteselect", function(event, ui) {
+                var ggp_id = this.parentNode.parentNode.parentNode.id,
+                    id = list_detail[ui.item.value].id_obat;
+                $(`#${ggp_id} .in_id_obat`).val(id)
+                tampilStok(this);
+            })
+        })
+        reassign()
 
-        function m_format(n) {
-            return n;
-            // return parseInt(n).toLocaleString('en')
-        };
-
-        function n_format(n) {
-            // return parseInt(`${n}`.replace(/[, ]+/g, ""))
-            return `${n}`.replace(/[, ]+/g, "");
-        };
-
-        function tampilObat() {
-            // id_suplier = document.getElementById("id_suplier").value;
-            // if (id_suplier != '-') {
-            $.ajax({
-                url: "<?php echo  base_url(); ?>penjualan/obat_search/",
-                success: function(response) {
-                    deleteAllRow('dataTable');
-                    current_max_row = $($.parseHTML(response)[0]).children().length
-                    $(`.id_obat`).html(response);
-                    tampilStok();
-                    // $("#frame_table_obat").attr("hidden", false);
-                },
-                dataType: "html"
-            });
-            return false;
-            //} else { // if Nama Supplier == - Pilih Supplier -
-            deleteAllRow('dataTable');
-            // $("#frame_table_obat").attr("hidden", true);
-            //  }
-        }
-
-        function tampilStok(el, id) {
-            var grandparent_id = el ? el.parentNode.parentNode.id : "row_obat_1";
-            id_obat = $(`#${!id ? grandparent_id : id} .id_obat`).val();
+        function tampilStok(el, id = null) {
+            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1";
+            id_obat = $(`#${!id ? ggp : id} .in_id_obat`).val();
             $.ajax({
                 url: "<?php echo  base_url(); ?>pembelian/get_stok/" + id_obat + "",
                 success: function(response) {
                     var resp = JSON.parse(response),
                         detail;
                     for (const key in resp) detail = resp[key];
-                    $(`#${!id ? grandparent_id : id} .in_stok_obat`).val(detail[1])
-                    $(`#${!id ? grandparent_id : id} .in_jenis_obat`).val(detail[2])
-                    $(`#${!id ? grandparent_id : id} .in_harga_obat`).val(m_format(detail[0]))
+                    $(`#${!id ? ggp : id} .in_stok_obat`).val(detail[1])
+                    $(`#${!id ? ggp : id} .in_jenis_obat`).val(detail[2])
+                    $(`#${!id ? ggp : id} .in_harga_obat`).val(detail[0])
                     hitungHarga(el ? el : null, id ? id : null);
                 },
                 dataType: "html"
@@ -218,26 +219,26 @@
         }
 
         function valid_q(el) {
-            var grandparent_id = el ? el.parentNode.parentNode.id : "row_obat_1";
-            var max = parseInt($(`#${ grandparent_id } .in_stok_obat`).val());
-            var crn = $(`#${ grandparent_id } .in_banyak_beli`).val()
-            if (crn > max) $(`#${ grandparent_id } .in_banyak_beli`).val(max);
-            else if (crn < 1) $(`#${ grandparent_id } .in_banyak_beli`).val(1);
+            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1";
+            var max = parseInt($(`#${ ggp } .in_stok_obat`).val());
+            var crn = $(`#${ ggp } .in_banyak_beli`).val()
+            if (crn > max) $(`#${ ggp } .in_banyak_beli`).val(max);
+            else if (crn < 1) $(`#${ ggp } .in_banyak_beli`).val(1);
         }
 
         function hitungHarga(el, id) {
-            var grandparent_id = el ? el.parentNode.parentNode.id : "row_obat_1";
-            var subtotal = (parseInt($(`#${!id ? grandparent_id : id} .in_harga_obat`).val()) * 1000) * parseInt($(`#${!id ? grandparent_id : id} .in_banyak_beli`).val());
-            $(`#${!id ? grandparent_id : id} .in_sub_total`).val(m_format(subtotal))
+            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1";
+            var subtotal = parseInt($(`#${!id ? ggp : id} .in_harga_obat`).val()) * parseInt($(`#${!id ? ggp : id} .in_banyak_beli`).val());
+            $(`#${!id ? ggp : id} .in_sub_total`).val(subtotal)
             hitungGtot();
         }
 
         function hitungGtot() {
             var gtotal = 0;
             $(".in_sub_total").each(function() {
-                gtotal += parseInt(n_format($(this).val()))
+                gtotal += parseInt($(this).val())
             })
-            if (!isNaN(gtotal)) $(".grandtotal").val(m_format(gtotal))
+            if (!isNaN(gtotal)) $(".grandtotal").val(gtotal)
         }
 
         function tampiljenisObat() {
@@ -264,18 +265,20 @@
                     var newcell = row.insertCell(i);
                     newcell.innerHTML = table.rows[0].cells[i].innerHTML;
                 }
+                reassign()
                 tampilStok(null, row.id)
             } else {
-                alert(`Supplier hanya memiliki ${current_max_row} item saja.`);
+                alert(`Item maks. (${current_max_row}) telah tercapai ( Semua obat sudah masuk kedalam list row ).`);
             }
         }
 
         function _deleteRow(tableID, el) {
-            var grandparent_id = el.parentNode.parentNode.id;
+            var ggp = el.parentNode.parentNode.id;
             var table = document.getElementById(tableID);
+            var s_nama = $(`#${ggp} .in_nama_obat`).val();
             var rowCount = table.rows.length;
             if (rowCount <= 1) alert("Tidak dapat menghapus row pembelian terakhir.");
-            else $(`#${grandparent_id}`).remove()
+            else $(`#${ggp}`).remove();
             hitungGtot();
         }
 

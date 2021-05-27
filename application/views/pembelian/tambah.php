@@ -175,16 +175,6 @@
         var rn = 1,
             current_max_row = 1; // index row id
 
-        function m_format(n) {
-            return n;
-            // return parseInt(n).toLocaleString('en')
-        };
-
-        function n_format(n) {
-            // return parseInt(`${n}`.replace(/[, ]+/g, ""))
-            return `${n}`.replace(/[, ]+/g, "");
-        };
-
         function tampilObat() {
             id_suplier = document.getElementById("id_suplier").value;
             if (id_suplier != '-') {
@@ -217,7 +207,7 @@
                     for (const key in resp) detail = resp[key];
                     $(`#${!id ? grandparent_id : id} .in_stok_obat`).val(detail[1])
                     $(`#${!id ? grandparent_id : id} .in_jenis_obat`).val(detail[2])
-                    $(`#${!id ? grandparent_id : id} .in_harga_obat`).val(m_format(detail[0]))
+                    $(`#${!id ? grandparent_id : id} .in_harga_obat`).val(detail[0])
                     hitungHarga(el ? el : null, id ? id : null);
                 },
                 dataType: "html"
@@ -235,17 +225,17 @@
 
         function hitungHarga(el, id) {
             var grandparent_id = el ? el.parentNode.parentNode.id : "row_obat_1";
-            var subtotal = (parseInt($(`#${!id ? grandparent_id : id} .in_harga_obat`).val())) * parseInt($(`#${!id ? grandparent_id : id} .in_banyak_beli`).val());
-            $(`#${!id ? grandparent_id : id} .in_sub_total`).val(m_format(subtotal))
+            var subtotal = parseInt($(`#${!id ? grandparent_id : id} .in_harga_obat`).val()) * parseInt($(`#${!id ? grandparent_id : id} .in_banyak_beli`).val());
+            $(`#${!id ? grandparent_id : id} .in_sub_total`).val(subtotal)
             hitungGtot();
         }
 
         function hitungGtot() {
             var gtotal = 0;
             $(".in_sub_total").each(function() {
-                gtotal += parseInt(n_format($(this).val()))
+                gtotal += parseInt($(this).val())
             })
-            if (!isNaN(gtotal)) $(".grandtotal").val(m_format(gtotal))
+            if (!isNaN(gtotal)) $(".grandtotal").val(gtotal)
         }
 
         function tampiljenisObat() {
