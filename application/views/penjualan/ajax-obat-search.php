@@ -11,8 +11,8 @@ function get_user($conn, $term)
 if (isset($_GET['term'])) {
     $getObat = get_user($conn, $_GET['term']);
     $obatList = array();
-    foreach ($getObat as $user) {
-        $obatList[] = $user['nama_obat'];
+    foreach ($getObat as $obat) {
+        $obatList[] = $obat['nama_obat'];
     }
     echo json_encode($obatList);
 }

@@ -74,7 +74,7 @@
                                         </div>
 
                                         <!-- Hover table card start -->
-                                        <div class="card" id="frame_table_obat" hidden>
+                                        <div class="card" id="frame_table_obat">
                                             <div class="card-block table-border-style">
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
@@ -178,24 +178,24 @@
         };
 
         function tampilObat() {
-            id_suplier = document.getElementById("id_suplier").value;
-            if (id_suplier != '-') {
-                $.ajax({
-                    url: "<?php echo  base_url(); ?>pembelian/pilih_obat/" + id_suplier + "",
-                    success: function(response) {
-                        deleteAllRow('dataTable');
-                        current_max_row = $($.parseHTML(response)[0]).children().length
-                        $(`.id_obat`).html(response);
-                        tampilStok();
-                        $("#frame_table_obat").attr("hidden", false);
-                    },
-                    dataType: "html"
-                });
-                return false;
-            } else { // if Nama Supplier == - Pilih Supplier -
-                deleteAllRow('dataTable');
-                $("#frame_table_obat").attr("hidden", true);
-            }
+            // id_suplier = document.getElementById("id_suplier").value;
+            // if (id_suplier != '-') {
+            $.ajax({
+                url: "<?php echo  base_url(); ?>penjualan/obat_search/",
+                success: function(response) {
+                    deleteAllRow('dataTable');
+                    current_max_row = $($.parseHTML(response)[0]).children().length
+                    $(`.id_obat`).html(response);
+                    tampilStok();
+                    // $("#frame_table_obat").attr("hidden", false);
+                },
+                dataType: "html"
+            });
+            return false;
+            //} else { // if Nama Supplier == - Pilih Supplier -
+            deleteAllRow('dataTable');
+            // $("#frame_table_obat").attr("hidden", true);
+            //  }
         }
 
         function tampilStok(el, id) {
