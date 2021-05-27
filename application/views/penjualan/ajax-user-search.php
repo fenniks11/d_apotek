@@ -13,6 +13,7 @@ if (isset($_GET['term'])) {
     $userList = array();
     foreach ($getUser as $user) {
         $userList[] = $user['email'];
+        $userList[] = $user['nama'];
     }
     echo json_encode($userList);
 }
