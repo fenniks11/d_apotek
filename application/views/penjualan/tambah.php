@@ -105,7 +105,7 @@
                                                                     <input type="text" name="jenis_obat[]" class="form-control input-sm in_jenis_obat" readonly />
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name="harga_beli[]" class="form-control input-sm in_harga_obat" readonly />
+                                                                    <input type="text" name="harga_jual[]" class="form-control input-sm in_harga_obat" readonly />
                                                                 </td>
                                                                 <td><input type="number" class="form-control in_banyak_beli" onchange="valid_q(this); hitungHarga(this);" value="1" min="1" name="banyak[]"></td>
                                                                 <td class="text-center"><input type="text" name="subtotal[]" class="form-control in_sub_total" class="form-control" readonly /></td>

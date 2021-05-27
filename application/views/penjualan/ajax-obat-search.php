@@ -10,18 +10,18 @@ function get_obat($conn/*, $term*/)
 
 // if (isset($_GET['term'])) {
 $getObat = get_obat($conn/*, $_GET['term']*/);
-    $oL = array();
-    foreach ($getObat as $oB) {
-        // $oL[] = $oB['nama_obat'];
-        // $oL[] = $oB['id_obat'];
-        // $oL[] = $oB['stok'];
-        // $oL[] = $oB['jenis'];
-        // $oL[] = $oB['harga_default'];
-        $oL[$oB['nama_obat']] = array();
-        $oL[$oB['nama_obat']]["id_obat"] = $oB['id_obat'];
-        $oL[$oB['nama_obat']]["stok"] = $oB['stok'];
-        $oL[$oB['nama_obat']]["jenis"] = $oB['jenis'];
-        $oL[$oB['nama_obat']]["harga_default"] = $oB['harga_default'];
-    }
-    echo json_encode($oL);
+$oL = array();
+foreach ($getObat as $oB) {
+    // $oL[] = $oB['nama_obat'];
+    // $oL[] = $oB['id_obat'];
+    // $oL[] = $oB['stok'];
+    // $oL[] = $oB['jenis'];
+    // $oL[] = $oB['harga_default'];
+    $oL[$oB['nama_obat']] = array();
+    $oL[$oB['nama_obat']]["id_obat"] = $oB['id_obat'];
+    $oL[$oB['nama_obat']]["stok"] = $oB['stok'];
+    $oL[$oB['nama_obat']]["jenis"] = $oB['jenis'];
+    $oL[$oB['nama_obat']]["harga_default"] = $oB['harga_default'];
+}
+echo json_encode($oL);
 // }
