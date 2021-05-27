@@ -24,6 +24,40 @@ class M_apotek extends CI_Model
         return $this->db->get('obat', $limit, $start)->result_array();
     }
 
+    // public function ambil_obat($conn, $term)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('obat');
+    //     $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+    //     $this->db->join('jenis_obat', 'detail_obat.id_jenis = jenis_obat.id_jenis');
+    //     $this->db->where('nama_obat');
+    //     $this->db->like('%" . $term . "%');
+    //     $query = $this->db->get();
+    //     // $query = "SELECT * FROM obat WHERE nama_obat LIKE '%" . $term . "%' join detail_obat on obat.id_obat = detail_obat.id_obat join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis ORDER BY nama_obat ASC";
+    //     $result = mysqli_query($conn, $query);
+    //     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    //     return $data;
+    // }
+
+    // public function get_obat($id_suplier)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('obat');
+    //     $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+    //     $this->db->where('obat.id_suplier', $id_suplier);
+    //     $query = $this->db->get();
+    //     if ($query->num_rows() > 0) {
+
+    //         foreach ($query->result_array() as $row) {
+    //             $data['-'] = '- Pilih Obat -';
+    //             $result[$row['id_obat']] = ucwords(strtolower($row['nama_obat']));
+    //         }
+    //     } else {
+    //         $result['-'] = '- Belum Ada Obat -';
+    //     }
+    //     return $result;
+    // }
+
     public function count_obat()
     {
         $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
@@ -93,10 +127,8 @@ class M_apotek extends CI_Model
 
     public function editDetail_obat($data)
     {
-        // $this->db->trans_start();
         $this->db->where('id_obat', $data['id_obat']);
         $this->db->update('detail_obat', $data);
-        // $this->db->trans_complete();
     }
 
     public function delete($data)
