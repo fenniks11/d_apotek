@@ -60,17 +60,7 @@ class Penjualan extends CI_Controller
     }
     public function obat_search()
     {
-        // $data['get_obat'] = $this->m_apotek->ambil_obat();
         $this->load->view('penjualan/ajax-obat-search.php');
-        //     if (isset($_GET['term'])) {
-        //         $getObat = $this->m_apotek->ambil_obat($conn, $_GET['term']);
-        //         $obatList = array();
-        //         foreach ($getObat as $obat) {
-        //             $obatList[] = $obat['id_obat'];
-        //             $obatList[] = $obat['nama_obat'];
-        //         }
-        //         echo json_encode($obatList);
-        //     }
     }
     public function grafik()
     {
