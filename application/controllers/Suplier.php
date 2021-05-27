@@ -30,11 +30,11 @@ class Suplier extends CI_Controller
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
 
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('suplier/daftar', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function tambah()
@@ -58,11 +58,11 @@ class Suplier extends CI_Controller
         $telp = $this->input->post('telp');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('suplier/tambah', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $data = array(
                 'nama_sup' => $nama_sup,
@@ -110,11 +110,11 @@ class Suplier extends CI_Controller
         $alamat = $this->input->post('alamat');
         $telp = $this->input->post('telp');
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('suplier/edit', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $data = array(
                 'nama_sup' => $nama_sup,

@@ -59,11 +59,11 @@ class Obat extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         // END PAGINATION
         $data['obat'] =  $this->m_apotek->obatPerPage($config['per_page'],  $data['start'],  $data['keyword']);
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('obat/daftar_obat', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function tambah()
@@ -91,11 +91,11 @@ class Obat extends CI_Controller
             $data['judul'] = 'Tambah Obat';
             $data['exp'] = $this->data['exp'];
             $data['nullstock'] = $this->data['nullstock'];
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('obat/tambah_obat', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $config['upload_path'] = './assets/gambar_obat/';
             $config['allowed_types']        = 'jpg|png|jpeg';
@@ -103,11 +103,11 @@ class Obat extends CI_Controller
             $this->upload->initialize($config);
             if (!$this->upload->do_upload('gambar')) {
                 $data['judul'] = 'Tambah Obat';
-                $this->load->view('template/user/header', $data);
-                $this->load->view('template/user/navbar', $data);
-                $this->load->view('template/user/aside', $data);
+                $this->load->view('template/admin/header', $data);
+                $this->load->view('template/admin/navbar', $data);
+                $this->load->view('template/admin/aside', $data);
                 $this->load->view('obat/tambah_obat', $data);
-                $this->load->view('template/user/footer', $data);
+                $this->load->view('template/admin/footer', $data);
             } else {
                 $upload_data = array('uploads' => $this->upload->data());
                 $config['image_library'] = 'gd2';
@@ -170,11 +170,11 @@ class Obat extends CI_Controller
             $data['error'] = $this->upload->display_errors();
             $data['exp'] = $this->data['exp'];
             $data['nullstock'] = $this->data['nullstock'];
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('obat/edit_obat', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $config['upload_path'] = './assets/gambar_obat/';
             $config['allowed_types']        = 'jpg|png|jpeg';
@@ -185,11 +185,11 @@ class Obat extends CI_Controller
                 $data['detailObat_id'] =  $this->m_apotek->detail_obat($id_obat);
                 $data['error'] = $this->upload->display_errors();
                 $data['exp'] = $this->data['exp'];
-                $this->load->view('template/user/header', $data);
-                $this->load->view('template/user/navbar', $data);
-                $this->load->view('template/user/aside', $data);
+                $this->load->view('template/admin/header', $data);
+                $this->load->view('template/admin/navbar', $data);
+                $this->load->view('template/admin/aside', $data);
                 $this->load->view('obat/edit_obat', $data);
-                $this->load->view('template/user/footer', $data);
+                $this->load->view('template/admin/footer', $data);
             } else {
                 $upload_data = array('uploads' => $this->upload->data());
                 $config['image_library'] = 'gd2';
@@ -284,11 +284,11 @@ class Obat extends CI_Controller
         $data['error'] = $this->upload->display_errors();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('obat/detail_obat', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function daftar_obat_habis()
@@ -304,11 +304,11 @@ class Obat extends CI_Controller
         $data['nullstock'] = $this->data['nullstock'];
         $data['stokHabis'] = $this->m_apotek->stokHabis()->result();
         $data['stokHampirHabis'] = $this->m_apotek->stok_hampir_habis()->result();
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('obat/obat_habis', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function daftar_obat_exp()
@@ -325,11 +325,11 @@ class Obat extends CI_Controller
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
         $this->session->set_flashdata('message', '<div class = "alert alert-warning" role="alert"><i class="fas fa-exclamation-triangle"> Obat Sudah kadaluarsan, harap Menambahkan obat yang baru.</div>');
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('obat/obat_exp', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function hapus_obat($id_obat)

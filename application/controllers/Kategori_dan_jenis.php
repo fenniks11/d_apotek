@@ -32,11 +32,11 @@ class Kategori_dan_jenis extends CI_Controller
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
 
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('kategori_jenis/daftar', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     // CREATE, UPDATE, DELETE DATA FOR JENIS
@@ -58,11 +58,11 @@ class Kategori_dan_jenis extends CI_Controller
         $nama_kategori = $this->input->post('nama_kategori');
         $des = $this->input->post('des');
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('kategori_jenis/tambah_kat', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $data = array(
                 'nama_kategori' => $nama_kategori,
@@ -107,11 +107,11 @@ class Kategori_dan_jenis extends CI_Controller
         $nama_kategori = $this->input->post('nama_kategori');
         $des = $this->input->post('des');
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('kategori_jenis/edit_kat', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $data = array(
                 'nama_kategori' => $nama_kategori,
@@ -165,11 +165,11 @@ class Kategori_dan_jenis extends CI_Controller
         $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
         $this->form_validation->set_rules('jenis', 'Jenis Obat', 'required|trim');
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('kategori_jenis/tambah_jenis', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $data = [
                 'jenis' => $this->input->post('jenis')
@@ -207,11 +207,11 @@ class Kategori_dan_jenis extends CI_Controller
         $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
         $this->form_validation->set_rules('jenis', 'Jenis Obat', 'required|trim');
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/user/header', $data);
-            $this->load->view('template/user/navbar', $data);
-            $this->load->view('template/user/aside', $data);
+            $this->load->view('template/admin/header', $data);
+            $this->load->view('template/admin/navbar', $data);
+            $this->load->view('template/admin/aside', $data);
             $this->load->view('kategori_jenis/edit_jenis', $data);
-            $this->load->view('template/user/footer', $data);
+            $this->load->view('template/admin/footer', $data);
         } else {
             $data = [
                 'jenis' => $this->input->post('jenis')

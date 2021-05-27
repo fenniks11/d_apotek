@@ -41,10 +41,6 @@
                                 <?php
                                 $menu_id = $m['id'];
                                 $querySubMenu = "select * from `user_sub_menu` where `menu_id` = $menu_id and `is_active` = 1";
-                                // $querySubMenu = "SELECT * FROM `user_sub_menu`.`menu_id` = `user_menu`.`id`
-                                //                     ON `user_sub_menu`.`menu_id` = `user_menu`.`id`
-                                //                     WHERE `user_sub_menu`.`menu_id` = $menu_id
-                                //                     and `user_sub_menu`.`is_active` = 1 ";
                                 $submenu = $this->db->query($querySubMenu)->result_array();
                                 ?>
 
@@ -64,15 +60,15 @@
                             </li>
                             <br>
                         <?php endforeach; ?>
-                    </ul>
-                <?php } else { ?>
-                    <!-- Jika user belum daftar atau belum login maka, beri button login dan register -->
-                    <p class="card-body text-primary">Hallo, Selamat datang!
-                        <a class="text-secondary" href="<?= base_url('auth/login') ?>">Klik untuk melanjutkan..
-                            <i class="ti-hand-point-up"></i>
-                        </a>
-                    </p>
 
+                    <?php } else { ?>
+                        <!-- Jika user belum daftar atau belum login maka, beri button login dan register -->
+                        <p class="card-body text-primary">Hallo, Selamat datang!
+                            <a class="text-secondary" href="<?= base_url('auth/login') ?>">Klik untuk belanja..
+                                <i class="ti-hand-point-up"></i>
+                            </a>
+                        </p>
+                    </ul>
                 <?php } ?>
             </div>
         </nav>

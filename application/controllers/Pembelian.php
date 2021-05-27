@@ -33,11 +33,11 @@ class Pembelian extends CI_Controller
         // purchase
         $data['purchase'] = $this->m_apotek->purchase()->result();
 
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('pembelian/daftar');
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function ambilData()
@@ -59,11 +59,11 @@ class Pembelian extends CI_Controller
         $data['get_sup'] =  $this->m_apotek->get_suplier();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('pembelian/tambah');
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function add_purchase()
@@ -116,11 +116,11 @@ class Pembelian extends CI_Controller
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
 
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
         $this->load->view('pembelian/grafik');
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     // dijalankan saat suplier di klik
@@ -156,9 +156,9 @@ class Pembelian extends CI_Controller
     {
         // purchase
         $data['purchase'] = $this->m_apotek->purchase()->result();
-        $this->load->view('template/user/header', $data);
+        $this->load->view('template/admin/header', $data);
         $this->load->view('pembelian/export_csv', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     public function file_csv()

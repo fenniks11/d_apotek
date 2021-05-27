@@ -53,11 +53,11 @@ class Cari extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         // END PAGINATION
         $data['obat'] =  $this->m_apotek->obatPerPage($config['per_page'],  $data['start'],  $data['keyword']);
-        $this->load->view('template/user/header', $data);
-        $this->load->view('template/user/navbar', $data);
-        $this->load->view('template/user/aside', $data);
-        $this->load->view('template/user/pencarian', $data);
-        $this->load->view('template/user/footer', $data);
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
+        $this->load->view('template/admin/pencarian', $data);
+        $this->load->view('template/admin/footer', $data);
     }
 
     function fetch()
