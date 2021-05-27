@@ -93,7 +93,7 @@
                                                             <tr id="row_obat_1" class="row_obat">
                                                                 <td>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" class="form-control lg in_nama_obat" placeholder="Ketik nama obat" name="id_obat[]" onchange="tampilStok(this)">
+                                                                        <input type="text" class="form-control lg in_nama_obat" placeholder="Ketik nama obat" name="id_obat[]" oninput="tampilStok(this)">
                                                                         <input type="text" class="in_id_obat" hidden>
                                                                         <?= form_error('id_obat') ?>
                                                                     </div>
@@ -173,8 +173,11 @@
             $.ajax({
                 url: "<?= base_url() ?>penjualan/obat_search",
                 success: function(resp) {
-                    list_detail = JSON.parse(resp);
-                    for (const x in list_detail) list_obat.push(x);
+                    r = JSON.parse(resp);
+                    for (const x in r) {
+                        list_obat.push(x);
+                        list_detail[x.toUpperCase()] = r[x];
+                    }
                     current_max_row = list_obat.length;
                 },
                 dataType: "html"
@@ -187,48 +190,47 @@
             });
         })
 
+        function id_change(el) {
+            var ggp_id = this.parentNode.parentNode.parentNode.id,
+                name = $(`#${ggp} .in_nama_obat`).val();
+        }
+
         var reassign = () => $(function() {
             $(".in_nama_obat").autocomplete({
                 source: list_obat,
             }).on("autocompleteselect", function(event, ui) {
                 var ggp_id = this.parentNode.parentNode.parentNode.id,
-                    id = list_detail[ui.item.value].id_obat;
+                    name = ui.item.value,
+                    id = list_detail[ui.item.value.toUpperCase()].id_obat;
                 $(`#${ggp_id} .in_id_obat`).val(id)
-                tampilStok(this);
+                tampilStok(this, name);
             })
         })
         reassign()
 
-        function tampilStok(el, id = null) {
-            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1";
-            id_obat = $(`#${!id ? ggp : id} .in_id_obat`).val();
-            $.ajax({
-                url: "<?php echo  base_url(); ?>pembelian/get_stok/" + id_obat + "",
-                success: function(response) {
-                    var resp = JSON.parse(response),
-                        detail;
-                    for (const key in resp) detail = resp[key];
-                    $(`#${!id ? ggp : id} .in_stok_obat`).val(detail[1])
-                    $(`#${!id ? ggp : id} .in_jenis_obat`).val(detail[2])
-                    $(`#${!id ? ggp : id} .in_harga_obat`).val(detail[0])
-                    hitungHarga(el ? el : null, id ? id : null);
-                },
-                dataType: "html"
-            });
+        function tampilStok(el, name = null) {
+            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1",
+                nama_obat = name ? name : $(`#${ggp} .in_nama_obat`).val();
+            nama_obat = nama_obat.toUpperCase();
+            if (!!list_detail[nama_obat.toUpperCase()]) {
+                $(`#${ggp} .in_stok_obat`).val(list_detail[nama_obat].stok)
+                $(`#${ggp} .in_jenis_obat`).val(list_detail[nama_obat].jenis)
+                $(`#${ggp} .in_harga_obat`).val(list_detail[nama_obat].harga_default)
+            }
             return false;
         }
 
         function valid_q(el) {
-            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1";
-            var max = parseInt($(`#${ ggp } .in_stok_obat`).val());
-            var crn = $(`#${ ggp } .in_banyak_beli`).val()
+            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1",
+                max = parseInt($(`#${ ggp } .in_stok_obat`).val()),
+                crn = $(`#${ ggp } .in_banyak_beli`).val();
             if (crn > max) $(`#${ ggp } .in_banyak_beli`).val(max);
             else if (crn < 1) $(`#${ ggp } .in_banyak_beli`).val(1);
         }
 
         function hitungHarga(el, id) {
-            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1";
-            var subtotal = parseInt($(`#${!id ? ggp : id} .in_harga_obat`).val()) * parseInt($(`#${!id ? ggp : id} .in_banyak_beli`).val());
+            var ggp = el ? el.parentNode.parentNode.parentNode.id : "row_obat_1",
+                subtotal = parseInt($(`#${!id ? ggp : id} .in_harga_obat`).val()) * parseInt($(`#${!id ? ggp : id} .in_banyak_beli`).val());
             $(`#${!id ? ggp : id} .in_sub_total`).val(subtotal)
             hitungGtot();
         }
@@ -266,7 +268,6 @@
                     newcell.innerHTML = table.rows[0].cells[i].innerHTML;
                 }
                 reassign()
-                tampilStok(null, row.id)
             } else {
                 alert(`Item maks. (${current_max_row}) telah tercapai ( Semua obat sudah masuk kedalam list row ).`);
             }
