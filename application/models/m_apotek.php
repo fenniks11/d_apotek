@@ -404,6 +404,7 @@ class M_apotek extends CI_Model
             $this->db->like('nama_pembeli', $keyword);
         }
         $this->db->select('*');
+        $this->db->join('user', 'invoice.user_id = invoice.user_id');
         $this->db->select_sum('invoice.banyak');
         $this->db->group_by('no_ref');
         $this->db->order_by('tgl_beli', 'DESC');
@@ -458,17 +459,6 @@ class M_apotek extends CI_Model
         $this->db->where($where);
         $this->db->delete($table);
     }
-
-    // purchase
-    // function show_purchase($where, $table)
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('purchase');
-    //     // $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
-    //     // $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
-    //     $run_q = $this->db->get_where($table, $where);
-    //     return $run_q;
-    // }
 
     // pembelian obat
     function purchase($limit, $start, $keyword = null)

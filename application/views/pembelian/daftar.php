@@ -92,6 +92,7 @@
                                         <th>Nama Pemasok</th>
                                         <th>Banyak</th>
                                         <th>Total</th>
+                                        <th>Admin</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,6 +118,7 @@
                                             <td><?= $p['nama_sup']; ?></td>
                                             <td><?= $p['banyak']; ?></td>
                                             <td>Rp. <?= number_format($p['grandtotal'], 0, ',', '.'); ?>,-</td>
+                                            <td><?= $p['nama']; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

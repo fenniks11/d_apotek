@@ -86,12 +86,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th class="text-center">#</th>
                                         <th>Tanggal Transaksi</th>
                                         <th>No. Referensi</th>
-                                        <th>Nama Pembeli</th>
+                                        <th>Email Pembeli</th>
                                         <th>Banyak Beli</th>
+                                        <th>Admin</th>
                                         <th>Total</th>
-                                        <th colspan="2" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,27 +108,35 @@
                                             </td>
                                         </tr>
                                     <?php endif ?>
-                                    <?php
+                                    <?php $no = 1;
                                     foreach ($penjualan as $p) : ?>
                                         <tr>
                                             <th scope="row"><?= ++$start; ?></th>
+                                            <td> <button class="btn btn-primary btn-out-dotted btn-round " type="button" data-toggle="collapse" data-target="#collapseExample<?= ++$no; ?>" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="fas fa-plus circle"></i>
+                                                </button>
+                                                <br><br>
+                                                <div class="collapse" id="collapseExample<?= $no++; ?>">
+                                                    <span>
+                                                        <button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Cetak <?= $p['no_ref']; ?>"><a href="<?= base_url('penjualan/invoice_page/'  . $p['no_ref']) ?>"><i class="fas fa-print text-white"></i></a>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Hapus <?= $p['no_ref']; ?>"><a href="<?= base_url('penjualan/hapus/'  . $p['no_ref']) ?>  " onclick="return confirm('Apakah data ingin dihapus?')"><i class=" fas fa-fw fa-trash"></i></a>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </td>
                                             <td><?= tanggal($p['tgl_beli']); ?></td>
                                             <td><?= $p['no_ref'] ?></td>
                                             <td><?= $p['member_email']; ?></td>
                                             <td><?= $p['banyak']; ?></td>
+                                            <td><?= $p['nama']; ?></td>
                                             <td>Rp. <?= number_format($p['grandtotal'], 0, ',', '.'); ?>,-</td>
-                                            <td><button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Cetak <?= $p['no_ref']; ?>"><a href="<?= base_url('penjualan/invoice_page/'  . $p['no_ref']) ?>"><i class="fas fa-print text-white"></i></a>
-                                                </button>
-                                            </td>
-                                            <td><button type="button" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Hapus <?= $p['no_ref']; ?>"><a href="<?= base_url('penjualan/hapus/'  . $p['no_ref']) ?>  " onclick="return confirm('Apakah data ingin dihapus?')"><i class=" fas fa-fw fa-trash"></i></a>
-                                                </button>
-                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <?= $this->pagination->create_links(); ?>
                         </div>
+                        <?= $this->pagination->create_links(); ?>
                     </div>
                 </div>
             </div>
