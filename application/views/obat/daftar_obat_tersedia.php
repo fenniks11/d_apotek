@@ -37,18 +37,8 @@
                     <div class="card">
                         <?= $this->session->flashdata('message'); ?>
                         <div class="card-header">
-                            <h5>Nama-nama obat terdaftar</h5>
+                            <h5><?= $judul; ?></h5>
                             <span>Tabel nama-nama <code>obat</code> dari semua kategori</span>
-                            <div class="card-header-right">
-                                <form action="<?= base_url('obat') ?>" method="POST">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="keyword" placeholder="Cari Obat" aria-label="Username" aria-describedby="basic-addon1" autofocus autocomplete="on">
-                                        <div class="input-group-append">
-                                            <input class="btn btn-primary" type="submit" name="submit" id="basic-addon1">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                         <div class="card-block table-border-style">
                             <div class="row mt-3 mb-3 ml-3">
@@ -86,48 +76,17 @@
                                             <th>Harga Default</th>
                                             <th>Stok</th>
                                             <th>Tanggal Exp</th>
-                                            <th colspan="3" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        if (empty($obat)) :
-                                        ?>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Data Tidak Ditemukan!
-                                                    </div>
-
-                                                </td>
-                                            </tr>
-                                        <?php endif ?>
                                         <?php
                                         foreach ($obat as $key) { ?>
                                             <tr>
                                                 <th scope="row"><?= ++$start; ?></th>
                                                 <td><?= $key['nama_obat'] ?></td>
                                                 <td>Rp.<?= number_format($key['harga_default'], 0, ',', '.') ?>,-</td>
-                                                <?php if ($key['stok'] > 0) { ?>
-                                                    <td><?= $key['stok']; ?></td>
-                                                <?php } else { ?>
-                                                    <td class="text-danger"><?= $key['stok']; ?></td>
-                                                <?php } ?>
-                                                <?php
-                                                if ($key['tgl_expired'] < date('Y-m-d')) { ?>
-                                                    <td class="text-danger"><?= $key['tgl_expired'] ?></td>
-                                                <?php } else { ?>
-                                                    <td class="text-primary"><?= $key['tgl_expired'] ?></td>
-                                                <?php } ?>
-                                                <td>
-                                                    <a href="<?= base_url('obat/detail_obat/' . $key['id_obat']) ?>" class="btn btn-info btn-round">detail</a> </button>
-                                                </td>
-                                                <td><button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Obat"><a href="<?= base_url('obat/edit_obat/'  . $key['id_obat']) ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                    </button>
-                                                </td>
-                                                <td><button type="button" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Hapus Obat"><a href="<?= base_url('obat/hapus_obat/'  . $key['id_obat']) ?>  " onclick="return confirm('Apakah data ingin dihapus?')"><i class=" fas fa-fw fa-trash"></i></a>
-                                                    </button>
-                                                </td>
+                                                <td><?= $key['stok']; ?></td>
+                                                <td class="text-primary"><?= $key['tgl_expired'] ?></td>
                                             </tr>
                                         <?php } ?>
 

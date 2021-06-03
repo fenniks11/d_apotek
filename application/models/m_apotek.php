@@ -39,6 +39,13 @@ class M_apotek extends CI_Model
         $this->db->order_by('obat.id_obat', 'DESC');
         return $this->db->get('obat', $limit, $start)->result_array();
     }
+    public function obatTersedia($limit, $start)
+    {
+        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        $this->db->order_by('obat.id_obat', 'DESC');
+        return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()', $limit, $start)->result_array();
+    }
     public function obatBebas($limit, $start, $keyword = null)
     {
         if ($keyword) {
@@ -82,7 +89,7 @@ class M_apotek extends CI_Model
         $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
         $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
         $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get('obat')->num_rows();
+        return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()')->num_rows();
     }
 
     // hitung user
@@ -249,12 +256,12 @@ class M_apotek extends CI_Model
 
     public function stokHabis()
     {
-        return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok BETWEEN 0 AND 0');
+        return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok <0');
     }
 
     public function countstock()
     {
-        $cs =  $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok BETWEEN 0 AND 0');
+        $cs =  $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok < 0');
         $nullstock = $cs->num_rows();
         return $nullstock;
     }

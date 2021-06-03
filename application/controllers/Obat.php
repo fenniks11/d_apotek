@@ -63,6 +63,38 @@ class Obat extends CI_Controller
         $this->load->view('obat/daftar_obat', $data);
         $this->load->view('template/admin/footer', $data);
     }
+    public function obat_tersedia()
+    {
+        $this->db->select('*');
+        $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
+        $this->db->join('user_role', 'detail_user.role_id = user_role.role_id', 'left');
+        $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['exp'] = $this->data['exp'];
+        $data['nullstock'] = $this->data['nullstock'];
+        $data['judul'] = 'Daftar Obat Tersedia';
+
+        // PAGINATION
+        $this->load->library('pagination'); //inisialisasi load library
+
+        $config['base_url'] = 'http://localhost/d_apotek/obat/obat_tersedia/';
+        $config['total_rows'] = $this->m_apotek->count_obat();
+        $data['total_rows'] =  $config['total_rows'];
+        $config['per_page'] = 3;
+
+        //INISIALISASI
+        $this->pagination->initialize($config);
+
+        $data['start'] = $this->uri->segment(3);
+        // END PAGINATION
+        $data['obat'] =  $this->m_apotek->obatTersedia($config['per_page'],  $data['start']);
+
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
+        $this->load->view('obat/daftar_obat_tersedia', $data);
+        $this->load->view('template/admin/footer', $data);
+    }
 
     public function tambah()
     {

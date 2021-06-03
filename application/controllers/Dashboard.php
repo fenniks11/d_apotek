@@ -10,6 +10,11 @@ class Dashboard extends CI_Controller
         $this->db->join('user_role', 'detail_user.role_id = user_role.role_id', 'left');
         $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        // cek jika dia admin, kembalikan dia ke halaman admin!
+        if ($data['user']['role_id'] == 1) {
+            redirect('admin');
+        };
         $data['judul'] = 'Halaman Utama';
 
         // PAGINATION
