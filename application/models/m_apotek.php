@@ -2,6 +2,22 @@
 
 class M_apotek extends CI_Model
 {
+    // Model untuk data user
+
+    public function getUser($data)
+    {
+        $this->db->select('*');
+        $this->db->from('invoice');
+        $this->db->join('user', 'invoice.member_email = user.email');
+        $this->db->join('alm_user', 'user.user_id = alm_user.user_id');
+        $this->db->join('provinsi', 'alm_user.provinsi = provinsi.id_provinsi');
+        $this->db->join('kabupaten', 'alm_user.kabkot = kabupaten.id_kabupaten');
+        $this->db->join('kecamatan', 'alm_user.kecamatan = kecamatan.id_kecamatan');
+        $this->db->join('kelurahan', 'alm_user.kelurahan = kelurahan.id_kelurahan');
+        $this->db->where('member_email', $data);
+        return $this->db->get()->result();
+    }
+
     // model untuk data obat
     public function daftar_obat()
     {
@@ -23,13 +39,74 @@ class M_apotek extends CI_Model
         $this->db->order_by('obat.id_obat', 'DESC');
         return $this->db->get('obat', $limit, $start)->result_array();
     }
+    public function obatBebas($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('nama_obat', $keyword);
+        }
+        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
+        $this->db->where('obat.id_kategori', 1);
+        $this->db->order_by('obat.id_obat', 'DESC');
+        return $this->db->get('obat', $limit, $start)->result_array();
+    }
+    public function obatBebasTerbatas($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('nama_obat', $keyword);
+        }
+        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
+        $this->db->where('obat.id_kategori', 2);
+        $this->db->order_by('obat.id_obat', 'DESC');
+        return $this->db->get('obat', $limit, $start)->result_array();
+    }
+    public function obatKeras($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('nama_obat', $keyword);
+        }
+        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
+        $this->db->where('obat.id_kategori', 3);
+        $this->db->order_by('obat.id_obat', 'DESC');
+        return $this->db->get('obat', $limit, $start)->result_array();
+    }
 
+    // hitung obat
     public function count_obat()
     {
         $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
         $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
         $this->db->order_by('obat.id_obat', 'DESC');
         return $this->db->get('obat')->num_rows();
+    }
+
+    // hitung user
+    public function count_user()
+    {
+        $cm =  $this->db->query('SELECT count(user_id) as totUser FROM user');
+        if ($cm->num_rows() > 0) {
+            foreach ($cm->result() as $get) {
+                return $get->totUser;
+            }
+        } else {
+            return FALSE;
+        }
+    }
+    public function count_obatTerjual()
+    {
+        $cm =  $this->db->query('SELECT count(id_tagihan) as totObatTerjual FROM invoice');
+        if ($cm->num_rows() > 0) {
+            foreach ($cm->result() as $get) {
+                return $get->totObatTerjual;
+            }
+        } else {
+            return FALSE;
+        }
     }
 
     public function fetch_data($query)
@@ -312,11 +389,86 @@ class M_apotek extends CI_Model
         return $data;
     }
 
-    // pembelian obat
 
-
-    function purchase()
+    // penjualan obat
+    function invoice($limit, $start, $keyword = null)
     {
+        if ($keyword) {
+            $this->db->like('nama_pembeli', $keyword);
+        }
+        $this->db->select('*');
+        $this->db->select_sum('invoice.banyak');
+        $this->db->group_by('no_ref');
+        $this->db->order_by('tgl_beli', 'DESC');
+        return $this->db->get('invoice', $limit, $start)->result_array();
+    }
+    function allInvoice()
+    {
+        $this->db->select('*');
+        $this->db->select_sum('invoice.banyak');
+        $this->db->group_by('no_ref');
+        $this->db->order_by('tgl_beli', 'DESC');
+        return $this->db->get('invoice')->result_array();
+    }
+
+    function show_data($where, $table)
+    {
+        $this->db->select('*');
+        $this->db->select_sum('banyak');
+        $run_q = $this->db->get_where($table, $where);
+        return $run_q;
+    }
+    function ambil_purchase($where, $table)
+    {
+        $this->db->select('*');
+        $this->db->join('suplier', 'purchase.id_suplier = suplier.id_suplier');
+        $this->db->select_sum('banyak');
+        $run_q = $this->db->get_where($table, $where);
+        return $run_q;
+    }
+
+    function show_invoice($where, $table)
+    {
+        $run_q = $this->db->get_where($table, $where);
+        return $run_q;
+    }
+    function show_purchase($where, $table)
+    {
+        $this->db->join('obat', 'purchase.id_obat = obat.id_obat');
+        $this->db->join('suplier', 'purchase.id_suplier = suplier.id_suplier');
+        $run_q = $this->db->get_where($table, $where);
+        return $run_q;
+    }
+    // hitung invoice
+    public function count_invoice()
+    {
+        return $this->db->get('invoice')->num_rows();
+    }
+
+    // model untuk menghapus data dari table yang tidak perlu spesifikasi apapun
+    function delete_data($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
+    // purchase
+    // function show_purchase($where, $table)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('purchase');
+    //     // $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
+    //     // $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
+    //     $run_q = $this->db->get_where($table, $where);
+    //     return $run_q;
+    // }
+
+    // pembelian obat
+    function purchase($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('nama_sup', $keyword);
+        }
         $this->db->select('*');
         $this->db->select_sum('purchase.banyak');
         $this->db->join('obat', 'purchase.id_obat = obat.id_obat');
@@ -327,7 +479,28 @@ class M_apotek extends CI_Model
         $this->db->group_by('no_ref');
         $this->db->order_by('tgl_beli', 'DESC');
 
-        $run_q = $this->db->get('purchase');
-        return $run_q;
+        return $this->db->get('purchase', $limit, $start)->result_array();
+    }
+
+    function allPurchase($where)
+    {
+        $this->db->select('*');
+        $this->db->select_sum('purchase.banyak');
+        $this->db->join('obat', 'purchase.id_obat = obat.id_obat');
+        $this->db->join('detail_obat', 'purchase.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'purchase.id_suplier = suplier.id_suplier');
+        $this->db->join('user', 'purchase.user_id = user.user_id');
+
+        return $this->db->get('purchase', $where)->result_array();
+    }
+
+    public function find($id_obat)
+    {
+        $result = $this->db->where('id_obat', $id_obat)->limit(1)->get('obat');
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return array();
+        }
     }
 }

@@ -27,7 +27,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="<?= base_url('penjualan/daftar') ?>">Daftar Penjualan Obat</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="<?= base_url('penjualan/tambah') ?>"><?= $judul; ?></a>
+                                    <li class="breadcrumb-item"><a href="<?= base_url('penjualan/form_tambah') ?>"><?= $judul; ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -49,14 +49,13 @@
                                 <div class="card-block">
                                     <h4 class="sub-title"></h4>
                                     <form action="<?= base_url('penjualan/add_invoice') ?>" method="POST">
-
-                                        <!-- <input type="hidden" name="user_id" id="" value="<?= $user['user_id']; ?>" readonly> -->
                                         <div class="form-group row">
                                             <!-- QUERY Kategori -->
-                                            <label class="col-sm-2 col-form-label">Nama User <sup class="text-danger">*</sup></label>
+                                            <label class="col-sm-2 col-form-label">Email User <sup class="text-danger">*</sup></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control lg" id="cari-nama" placeholder="Ketik nama user" name="nama">
-                                                <?= form_error('nama') ?>
+                                                <input type="hidden" name="user_id" id="" value="<?= $user['user_id']; ?>" readonly>
+                                                <input type="text" class="form-control lg" id="cari-nama" placeholder="Ketik nama user" name="member_email">
+                                                <?= form_error('member_email') ?>
                                             </div>
                                         </div>
                                         <?php
@@ -68,8 +67,6 @@
                                             <label class="col-sm-2 col-form-label">Tanggal Transaksi<sup class="text-danger">*</sup></label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" placeholder="Tanggal Transaksi" name="tgl_beli" value="<?= $timestamp ?>" readonly>
-
-                                                <?= form_error('tgl_beli') ?>
                                             </div>
                                         </div>
 
@@ -93,9 +90,9 @@
                                                             <tr id="row_obat_1" class="row_obat">
                                                                 <td>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" class="form-control lg in_nama_obat" placeholder="Ketik nama obat" name="id_obat[]" oninput="tampilStok(this)">
+                                                                        <input type="text" class="form-control lg in_nama_obat" placeholder="Ketik nama obat" name="nama_obat[]" oninput="tampilStok(this)">
                                                                         <input type="text" class="in_id_obat" hidden>
-                                                                        <?= form_error('id_obat') ?>
+                                                                        <?= form_error('nama_obat') ?>
                                                                     </div>
                                                                 </td>
                                                                 <td>

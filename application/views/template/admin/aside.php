@@ -3,16 +3,6 @@
         <nav class="pcoded-navbar">
             <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
             <div class="pcoded-inner-navbar main-menu">
-                <div class="pcoded-search">
-                    <span class="searchbar-toggle"> </span>
-                    <div class="pcoded-search-box ">
-                        <!-- <div id="prefetch"> -->
-                        <input type="text" placeholder="Search" class="form-control custom-search" name="category_search_name" id="category_search_name">
-                        <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <!-- Tampilkan text 'Hallo, selamat datang..!' -->
                 <?php if (isset($_SESSION['email']) && !empty($_SESSION['email'])) {
                     //jika user tidak kosong, maka beri button logout
                 ?>
@@ -39,12 +29,8 @@
                                 </a>
 
                                 <?php
-                                $menu_id = $m['id'];
+                                $menu_id = $m['menu_id'];
                                 $querySubMenu = "select * from `user_sub_menu` where `menu_id` = $menu_id and `is_active` = 1";
-                                // $querySubMenu = "SELECT * FROM `user_sub_menu`.`menu_id` = `user_menu`.`id`
-                                //                     ON `user_sub_menu`.`menu_id` = `user_menu`.`id`
-                                //                     WHERE `user_sub_menu`.`menu_id` = $menu_id
-                                //                     and `user_sub_menu`.`is_active` = 1 ";
                                 $submenu = $this->db->query($querySubMenu)->result_array();
                                 ?>
 
@@ -76,60 +62,3 @@
                 <?php } ?>
             </div>
         </nav>
-
-        <!-- <script type="text/javascript">
-            $(document).ready(function() {
-                var sample_data = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    prefetch: '<?php echo base_url(); ?>cari/fetch',
-                    remote: {
-                        url: '<?php echo base_url(); ?>cari/fetch/%QUERY',
-                        wildcard: '%QUERY'
-                    }
-                });
-
-
-                $('#prefetch .typeahead').typeahead(null, {
-                    name: 'sample_data',
-                    display: 'name_obat',
-                    source: sample_data,
-                    limit: 10,
-                    templates: {
-                        suggestion: Handlebars.compile('<div class="row"><div class="col-md-2" style="padding-right:5px; padding-left:5px;"><img src="student_image/{{image}}" class="img-thumbnail" width="48" /></div><div class="col-md-10" style="padding-right:5px; padding-left:5px;">{{name}}</div></div>')
-                    }
-                });
-            });
-        </script> -->
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script>
-            function addText(Textval) {
-                $('#category_search_name').val(Textval);
-                $('#more_result').empty();
-            }
-
-            $(document).ready(function() {
-                // this focus event while you are focusing on an input element.If you enter some text on this input ,its will be passing data in the category-search-name URL.
-                $('#category_search_name').on('keyup', function() {
-                    // Get value from the search box
-                    var search_text = $('#category_search_name').val();
-                    // check value is exist or not
-                    if (search_text == "") {
-                        $('#more_result').empty();
-                    } else {
-                        $.ajax({
-                            type: "POST", // data pass by POST method.
-                            url: "category-search-name", // This is the URL link where you sent the data.
-                            data: {
-                                search_name: search_text
-                            }, // search_text value store in the search_name variable and pass variable data by POST method.
-                            success: function(html) {
-                                console.log(html); // you can check result in the browser console.
-                                $("#more_result").html(html).show(); // when data get display a list "more_result" is the "UL" tag id name.
-                            }
-                        });
-                    }
-                });
-            });
-        </script>

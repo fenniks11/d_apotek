@@ -8,7 +8,7 @@
             <a class="mobile-search morphsearch-search" href="#">
                 <i class="ti-search"></i>
             </a>
-            <a href="index.html">
+            <a href="<?= base_url('dashboard') ?>">
                 <img class="img-fluid" src="<?= base_url() ?>assets/images/logoimg.png">
             </a>
             <a class="mobile-options">

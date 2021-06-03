@@ -18,12 +18,14 @@
                             <?= $this->session->flashdata('message'); ?>
                             <hr />
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Your Email Address" name="email" value="<?= set_value('email') ?>">
+                                <span class="input-group-addon" id="name"><i class="fas fa-at"></i></span>
+                                <input type="text" class="form-control" placeholder="Your Email Address" title="Masukkan email anda" data-toggle="tooltip" name="email" value="<?= set_value('email') ?>" autofocus>
                                 <span class="md-line"></span>
                             </div>
                             <?= form_error('email', '<small class="text-danger">', '</small>') ?>
                             <div class="input-group">
-                                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                                <span class="input-group-addon" id="password"><i class="fas fa-key"></i></span>
+                                <input type="password" class="form-control" title="Masukkan password anda" data-toggle="tooltip" placeholder="Password" id="password" name="password">
                                 <span class="md-line"></span>
                             </div>
                             <?= form_error('password', '<small class="text-danger">', '</small>') ?>

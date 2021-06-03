@@ -8,7 +8,7 @@
             <a class="mobile-search morphsearch-search" href="#">
                 <i class="ti-search"></i>
             </a>
-            <a href="index.html">
+            <a href="<?= base_url('dashboard') ?>">
                 <img class="img-fluid" src="<?= base_url() ?>assets/images/logoimg.png">
             </a>
             <a class="mobile-options">
@@ -31,10 +31,10 @@
             </ul>
             <ul class="nav-right">
                 <li class="header-notification">
-                    <a href="#!">
-                        <i class="ti-bell"></i>
-                        <span class="badge bg-c-pink"></span>
-                    </a>
+                    <?php
+                    $keranjang = '<i class="fa-2x ti-shopping-cart"></i><small class="badge bg-c-pink">' . $this->cart->total_items() . '</small>';
+                    ?>
+                    <?= anchor('dashboard/detail_keranjang', $keranjang)  ?>
                 </li>
                 <li class="user-profile header-notification">
                     <!-- Aktifasi button -->

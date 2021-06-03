@@ -30,6 +30,8 @@ class Admin extends CI_Controller
         $data['tot_kat'] = $this->m_apotek->count_kat();
         $data['stockobat'] = $this->m_apotek->count_med();
         $data['jenis'] = $this->m_apotek->count_jenis();
+        $data['tot_user'] = $this->m_apotek->count_user();
+        $data['tot_obat_terjual'] = $this->m_apotek->count_obatTerjual();
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);
         $this->load->view('template/admin/aside', $data);

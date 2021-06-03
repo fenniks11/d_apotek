@@ -25,9 +25,7 @@ class Obat extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
-
         $data['judul'] = 'Daftar Obat';
-        // $data['obat'] =  $this->m_apotek->daftar_obat();
 
         // PAGINATION
         $this->load->library('pagination'); //inisialisasi load library
@@ -47,11 +45,11 @@ class Obat extends CI_Controller
         $this->db->from('obat');
         $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
         $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->order_by('obat.id_obat', 'DESC');
+        $this->db->order_by('tgl_beli', 'DESC');
         $config['base_url'] = 'http://localhost/d_apotek/obat/index/';
         $config['total_rows'] = $this->db->count_all_results();
         $data['total_rows'] =  $config['total_rows'];
-        $config['per_page'] = 5;
+        $config['per_page'] = 3;
 
         //INISIALISASI
         $this->pagination->initialize($config);

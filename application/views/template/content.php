@@ -12,7 +12,7 @@
                                 <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                 <div class="d-inline">
                                     <h4>SISTEM INFORMASI D'APOTEK</h4>
-                                    <span>Halaman Utama Admin</span>
+                                    <span><?= $judul ?></span>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                             <!-- card1 end -->
                             <!-- card1 start -->
                             <div class="col-md-6 col-xl-4">
-                                <a href="<?= base_url('kategori_dan_jenis/tambah_kategori') ?>">
+                                <a href="<?= base_url('kategori_dan_jenis/tambah_kat') ?>">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
                                             <i class="fas fa-pills bg-c-pink card1-icon"></i>
@@ -99,7 +99,7 @@
                                             <h4><?= $jenis; ?></h4>
                                             <div>
                                                 <span class="f-left m-t-10 text-muted">
-                                                    <i class="text-c-blue f-16 fas fa-plus-square m-r-10"></i>Tambahkan Jenis Obat Baru
+                                                    <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Tracked via microsoft
                                                 </span>
                                             </div>
                                         </div>
@@ -110,11 +110,11 @@
                                 <div class="card widget-card-1">
                                     <div class="card-block-small">
                                         <i class="fas fa-users bg-c-green card1-icon"></i>
-                                        <span class="text-c-green f-w-600">Total User</span>
-                                        <h4><?= $tot_user; ?></h4>
+                                        <span class="text-c-green f-w-600">Total Suplier</span>
+                                        <h4><?= $tot_sup; ?></h4>
                                         <div>
                                             <span class="f-left m-t-10 text-muted">
-                                                <i class="text-c-green fas fa-users m-r-10"></i>Jumlah saat ini.
+                                                <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Tracked via microsoft
                                             </span>
                                         </div>
                                     </div>
@@ -126,11 +126,11 @@
                                 <div class="card widget-card-1">
                                     <div class="card-block-small">
                                         <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-                                        <span class="text-c-yellow f-w-600">Total Obat Terjual</span>
-                                        <h4><?= $tot_user; ?></h4>
+                                        <span class="text-c-yellow f-w-600">Followers</span>
+                                        <h4>+562</h4>
                                         <div>
                                             <span class="f-left m-t-10 text-muted">
-                                                <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Total obat terjual saat ini.
+                                                <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update
                                             </span>
                                         </div>
                                     </div>
@@ -146,7 +146,3 @@
             </div>
         </div>
         <!-- end content -->
-    </div>
-</div>
-</div>
-</div>

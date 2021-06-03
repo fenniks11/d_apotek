@@ -25,13 +25,41 @@ class Pembelian extends CI_Controller
         $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['judul'] = 'Daftar Pembelian Obat';
         $data['obat'] =  $this->m_apotek->daftar_obat();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
+        $data['judul'] = 'Daftar Pembelian Obat';
+        // PAGINATION
+        $this->load->library('pagination'); //inisialisasi load library
+
+        // ambil data keyword
+        if (!($this->uri->segment(2))) {
+            $data['keyword'] = $this->session->unset_userdata('keyword');
+        }
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('nama_sup', $data['keyword']);
+        $this->db->from('obat');
+        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        $this->db->order_by('tgl_beli', 'DESC');
+        $config['base_url'] = 'http://localhost/d_apotek/pembelian/daftar/';
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] =  $config['total_rows'];
+        $config['per_page'] = 3;
+
+        //INISIALISASI
+        $this->pagination->initialize($config);
+
+        $data['start'] = $this->uri->segment(3);
 
         // purchase
-        $data['purchase'] = $this->m_apotek->purchase()->result();
+        $data['purchase'] = $this->m_apotek->purchase($config['per_page'],  $data['start'],  $data['keyword']);
 
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);
@@ -103,6 +131,27 @@ class Pembelian extends CI_Controller
         $data = $this->m_apotek->getmedbysupplier($nama_sup);
         echo json_encode($data);
     }
+
+    public function purchase_page($no_ref)
+    {
+        $this->db->select('*');
+        $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
+        $this->db->join('user_role', 'detail_user.role_id = user_role.role_id', 'left');
+        $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['judul'] = 'Cetak Nota Pembelian';
+        $where = array('no_ref' => $no_ref);
+        $data['purchase'] = $this->m_apotek->ambil_purchase($where, 'purchase')->result();
+        $data['show_purchase'] = $this->m_apotek->show_purchase($where, 'purchase')->result();
+        // $data['pembelian'] = $this->m_apotek->allPurchase($where);
+
+        $this->load->view('template/admin/header', $data);
+        $this->load->view('template/admin/navbar', $data);
+        $this->load->view('template/admin/aside', $data);
+        $this->load->view('pembelian/purchase_page', $data);
+        $this->load->view('template/admin/footer', $data);
+    }
     public function grafik()
     {
         $this->db->select('*');
@@ -151,40 +200,14 @@ class Pembelian extends CI_Controller
         $this->load->view('pembelian/v_drop_down_jenisObat', $data);
     }
 
-    // function export
-    public function export_csv()
+    // Hapus Nota Pembelian
+    function hapus($no_ref)
     {
-        // purchase
-        $data['purchase'] = $this->m_apotek->purchase()->result();
-        $this->load->view('template/admin/header', $data);
-        $this->load->view('pembelian/export_csv', $data);
-        $this->load->view('template/admin/footer', $data);
-    }
 
-    public function file_csv()
-    {
-        $config['allowed_types'] = 'pdf|csv';
+        $where = array('no_ref' => $no_ref);
+        $this->m_apotek->delete_data($where, 'purchase');
 
-        $this->load->library('upload', $config);
-
-        $this->upload->initialize($config);
-        $file_name = 'historyPembelianObat' . date('Ymd') . '.csv';
-        header("Content-Description: File Transfer");
-        header("Content-Disposition: attachment; filename=$file_name");
-        header("Content-Type: application/csv;");
-
-        // get data 
-        $purchase = $this->m_apotek->purchase();
-
-        // file creation 
-        $file = fopen('php://output', 'w');
-
-        $header = array("No. ", "Tanggal Transaksi", "No. Referensi", "Total");
-        fputcsv($file, $header);
-        foreach ($purchase->result_array() as $key => $value) {
-            fputcsv($file, $value);
-        }
-        fclose($file);
-        exit;
+        $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Data Berhasil Dihapus.</div>');
+        redirect('pembelian/daftar');
     }
 }
