@@ -221,7 +221,7 @@ class Dashboard extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
-        $this->load->view('user/keranjang', $data);
+        $this->load->view('template/user/keranjang', $data);
         $this->load->view('template/footer');
     }
 

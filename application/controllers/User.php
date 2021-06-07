@@ -33,7 +33,7 @@ class User extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
-        $this->load->view('user/content', $data);
+        $this->load->view('template/user/content', $data);
         $this->load->view('template/footer');
     }
     public function cekout()
@@ -86,7 +86,7 @@ class User extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
-        $this->load->view('user/unggah_resep', $data);
+        $this->load->view('template/user/unggah_resep', $data);
         $this->load->view('template/footer');
     }
 
@@ -126,18 +126,14 @@ class User extends CI_Controller
         $data['judul'] = 'Resep';
 
         $where = $data['user']['user_id'];
-        // print_r($where);
-        // die;
         $this->db->where('member_id', $where);
         $this->db->order_by('waktu', 'DESC');
         $data['resep'] = $this->db->get_where('resep', 'status != 4')->result_array();
 
-        // print_r($data['resep']);
-        // die;
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
-        $this->load->view('user/resep', $data);
+        $this->load->view('template/user/resep', $data);
         $this->load->view('template/footer');
     }
 

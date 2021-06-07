@@ -40,8 +40,83 @@
                             $control = 1;
                             $label = 1;
                             $collapeid = 1;
+                            $no = 1;
                             foreach ($resep as $key) { ?>
-                                <?php if ($key['status'] == 3) { ?>
+                                <?php if ($key['status'] == 4) { ?>
+                                    <ul>
+                                        <li>
+                                            <p>
+                                                <button class="btn btn-sm btn-outline-success" type="button" data-toggle="collapse" data-target="#collapse<?= $target++; ?>" aria-expanded="false" aria-controls="collapse<?= $control++; ?>">
+                                                    <?= $key['waktu']; ?> - Sudah Dibayar
+                                                </button>
+                                            </p>
+                                            <div class="collapse" id="collapse<?= $collapeid++; ?>">
+                                                <div class="card-body text-center" style="width: 100%;">
+                                                    <div class="card-block table-border-style">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-light table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Pengirim</th>
+                                                                        <th>Email Pengirim</th>
+                                                                        <th>Id Admin</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <?php
+                                                                        $id_resep = $key['id_resep'];
+                                                                        $query = ("select bukti_tf.waktu as waktu_pembayaran from bukti_tf join resep on resep.id_resep = bukti_tf.id_resep join user on resep.member_id = user.user_id where bukti_tf.id_resep = $id_resep");
+                                                                        $q = $this->db->query($query)->result_array();
+                                                                        ?>
+                                                                        <td rowspan="2">
+                                                                            <button class="btn btn-primary btn-out-dotted" type="button" data-toggle="collapse" data-target="#collapseExample<?= ++$no; ?>" aria-expanded="false" aria-controls="collapseExample">
+                                                                                <i class="ti-eye"> Lihat</i>
+                                                                            </button>
+                                                                            <br><br>
+                                                                            <div class="collapse" id="collapseExample<?= $no++; ?>">
+                                                                                <span>
+                                                                                    <a href="<?= base_url('assets/gambar_resep/' . $key['gambar_resep']); ?>">
+                                                                                        <img class="img-resep" src="<?= base_url('assets/gambar_resep/' . $key['gambar_resep']); ?>" alt="" width=""><br>
+                                                                                    </a>
+                                                                                </span><br>
+
+                                                                                <?php foreach ($q as $t) : ?>
+                                                                                    <h5>Waktu Pembayaran: <?= $t['waktu_pembayaran']; ?></h5>
+                                                                                <?php endforeach ?>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <?= $key['nama_pengirim']; ?>
+                                                                        </td>
+                                                                        <td>
+                                                                            <?= $key['email']; ?>
+                                                                        </td>
+                                                                        <?php
+                                                                        $id_admin = $key['id_admin'];
+                                                                        $query = ("select user.email as email_admin from user join resep on user.user_id = resep.user_id where resep.user_id = $id_admin");
+                                                                        $q = $this->db->query($query)->result_array();
+                                                                        ?>
+
+                                                                        <td>
+                                                                            <?= $key['id_admin']; ?> - <?php foreach ($q as $t) : ?>
+                                                                                <?= $t['email_admin']; ?>
+                                                                            <?php endforeach ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <form action="<?= base_url('admin/proses_pesanan/') . $key['id_resep'] ?>">
+                                                        <button type="submit" class="form-control btn btn-sm btn-round btn-primary">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div><br>
+                                        </li>
+                                    </ul>
+                                <?php } else if ($key['status'] == 3) { ?>
                                     <p>
                                         <button class="btn btn-sm btn-outline-success" type="button" data-toggle="collapse" data-target="#collapse<?= $target++; ?>" aria-expanded="false" aria-controls="collapse<?= $control++; ?>">
                                             <?= $key['waktu']; ?> - Sudah Dibayar

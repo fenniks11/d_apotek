@@ -41,14 +41,11 @@ class M_apotek extends CI_Model
     }
     function getResep()
     {
-        $this->db->select('id_resep,resep.gambar as gambar_resep, status, user.nama as nama_pengirim, user.email as email, waktu, keterangan');
+        $this->db->select('id_resep,resep.gambar as gambar_resep, status, user.nama as nama_pengirim, user.email as email, waktu, keterangan, resep.user_id as id_admin');
         $this->db->from('resep');
         $this->db->join('user', 'resep.member_id = user.user_id');
-        $this->db->where('status != 4');
         $this->db->order_by('waktu', 'DESC');
-        // $query = ("SELECT id_resep, resep.gambar as gambar_resep, status, user.nama as nama_pengirim, user.email as email, waktu, keterangan FROM resep join user on resep.member_id = user.user_id where status != 4 and order by waktu desc ");
         return $this->db->get()->result_array();
-        // return $query;
     }
 
     // model untuk data obat
