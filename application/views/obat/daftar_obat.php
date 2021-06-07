@@ -34,8 +34,8 @@
                 <!-- Page-body start -->
                 <div class="page-body">
                     <!-- Basic table card start -->
+                    <?= $this->session->flashdata('message'); ?>
                     <div class="card">
-                        <?= $this->session->flashdata('message'); ?>
                         <div class="card-header">
                             <h5>Nama-nama obat terdaftar</h5>
                             <span>Tabel nama-nama <code>obat</code> dari semua kategori</span>

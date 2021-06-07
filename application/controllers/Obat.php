@@ -215,6 +215,7 @@ class Obat extends CI_Controller
                 $data['detailObat_id'] =  $this->m_apotek->detail_obat($id_obat);
                 $data['error'] = $this->upload->display_errors();
                 $data['exp'] = $this->data['exp'];
+                $data['nullstock'] = $this->data['nullstock'];
                 $this->load->view('template/admin/header', $data);
                 $this->load->view('template/admin/navbar', $data);
                 $this->load->view('template/admin/aside', $data);

@@ -32,7 +32,7 @@
             <ul class="nav-right">
                 <li class="header-notification">
                     <?php
-                    $keranjang = '<i class="fa-2x ti-shopping-cart"></i><small class="badge bg-c-pink">' . $this->cart->total_items() . '</small>';
+                    $keranjang = '<i class="fa-2x ti-shopping-cart-full"></i><small class="badge bg-c-pink">' . $this->cart->total_items() . '</small>';
                     ?>
                     <?= anchor('dashboard/detail_keranjang', $keranjang)  ?>
                 </li>

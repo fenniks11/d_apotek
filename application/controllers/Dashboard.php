@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once 'functions.php';
 
 class Dashboard extends CI_Controller
 {
@@ -46,7 +47,7 @@ class Dashboard extends CI_Controller
 
         $data['start'] = $this->uri->segment(3);
         // END PAGINATION
-        $data['obat'] =  $this->m_apotek->obatPerPage($config['per_page'],  $data['start'],  $data['keyword']);
+        $data['obat'] =  $this->m_apotek->obatDijual($config['per_page'],  $data['start'],  $data['keyword']);
         // $where = $data['obat'][0]['id_kategori'];
         // print_r($where);
         // die;
@@ -192,22 +193,6 @@ class Dashboard extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function user()
-    {
-        cek_login();
-        $this->db->select('*');
-        $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
-        $this->db->join('user_role', 'detail_user.role_id = user_role.role_id', 'left');
-        $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['judul'] = 'Halaman Utama User';
-        $this->load->view('template/header', $data);
-        $this->load->view('template/navbar', $data);
-        $this->load->view('template/aside', $data);
-        $this->load->view('template/content', $data);
-        $this->load->view('template/footer');
-    }
-
     public function tambah_keranjang($id_obat)
     {
         $obat = $this->m_apotek->find($id_obat);
@@ -232,26 +217,11 @@ class Dashboard extends CI_Controller
         $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['judul'] = 'Keranjang Anda';
+        $data['get_user'] = $this->m_apotek->getDataPembeli($data['user']['email']);
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
         $this->load->view('user/keranjang', $data);
-        $this->load->view('template/footer');
-    }
-
-    public function cekout()
-    {
-        cek_login();
-        $this->db->select('*');
-        $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
-        $this->db->join('user_role', 'detail_user.role_id = user_role.role_id', 'left');
-        $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['judul'] = 'Halaman Utama User';
-        $this->load->view('template/header', $data);
-        $this->load->view('template/navbar', $data);
-        $this->load->view('template/aside', $data);
-        $this->load->view('user/cekout', $data);
         $this->load->view('template/footer');
     }
 

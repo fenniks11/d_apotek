@@ -17,6 +17,39 @@ class M_apotek extends CI_Model
         $this->db->where('member_email', $data);
         return $this->db->get()->result();
     }
+    public function getDataPembeli($data)
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->join('alm_user', 'user.user_id = alm_user.user_id');
+        $this->db->join('provinsi', 'alm_user.provinsi = provinsi.id_provinsi');
+        $this->db->join('kabupaten', 'alm_user.kabkot = kabupaten.id_kabupaten');
+        $this->db->join('kecamatan', 'alm_user.kecamatan = kecamatan.id_kecamatan');
+        $this->db->join('kelurahan', 'alm_user.kelurahan = kelurahan.id_kelurahan');
+        $this->db->where('email', $data);
+        return $this->db->get()->result();
+    }
+
+    function insert_data($data, $table)
+    {
+        $this->db->insert($table, $data);
+    }
+
+    function selectAll($table)
+    {
+        $this->db->get($table);
+    }
+    function getResep()
+    {
+        $this->db->select('id_resep,resep.gambar as gambar_resep, status, user.nama as nama_pengirim, user.email as email, waktu, keterangan');
+        $this->db->from('resep');
+        $this->db->join('user', 'resep.member_id = user.user_id');
+        $this->db->where('status != 4');
+        $this->db->order_by('waktu', 'DESC');
+        // $query = ("SELECT id_resep, resep.gambar as gambar_resep, status, user.nama as nama_pengirim, user.email as email, waktu, keterangan FROM resep join user on resep.member_id = user.user_id where status != 4 and order by waktu desc ");
+        return $this->db->get()->result_array();
+        // return $query;
+    }
 
     // model untuk data obat
     public function daftar_obat()
@@ -41,6 +74,16 @@ class M_apotek extends CI_Model
     }
     public function obatTersedia($limit, $start)
     {
+        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        $this->db->order_by('obat.id_obat', 'DESC');
+        return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()', $limit, $start)->result_array();
+    }
+    public function obatDijual($limit, $start, $keyword)
+    {
+        if ($keyword) {
+            $this->db->like('nama_obat', $keyword);
+        }
         $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
         $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
         $this->db->order_by('obat.id_obat', 'DESC');
@@ -161,6 +204,10 @@ class M_apotek extends CI_Model
     public function add($data)
     {
         $this->db->insert('obat', $data);
+    }
+    public function insert($data, $table)
+    {
+        $this->db->insert($table, $data);
     }
 
     public function addDetailObat($data)
@@ -284,11 +331,6 @@ class M_apotek extends CI_Model
     function jenis()
     {
         return $this->db->get('jenis_obat');
-    }
-
-    function insert_data($data, $table)
-    {
-        $this->db->insert($table, $data);
     }
 
     function edit_data($where, $table)
