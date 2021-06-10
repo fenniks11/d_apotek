@@ -80,7 +80,7 @@ class Obat extends CI_Controller
         $config['base_url'] = 'http://localhost/d_apotek/obat/obat_tersedia/';
         $config['total_rows'] = $this->m_apotek->count_obat();
         $data['total_rows'] =  $config['total_rows'];
-        $config['per_page'] = 3;
+        $config['per_page'] = 5;
 
         //INISIALISASI
         $this->pagination->initialize($config);
@@ -88,6 +88,11 @@ class Obat extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         // END PAGINATION
         $data['obat'] =  $this->m_apotek->obatTersedia($config['per_page'],  $data['start']);
+
+        // print_r($data['obat']);
+        // print_r($data['total_rows']);
+        // print_r($data['obat']);
+        // die;
 
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);
@@ -334,6 +339,8 @@ class Obat extends CI_Controller
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
         $data['stokHabis'] = $this->m_apotek->stokHabis()->result();
+        // print_r($data['stokHabis']);
+        // die;
         $data['stokHampirHabis'] = $this->m_apotek->stok_hampir_habis()->result();
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);

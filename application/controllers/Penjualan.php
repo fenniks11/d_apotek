@@ -57,6 +57,9 @@ class Penjualan extends CI_Controller
 
         // end pagination
         $data['penjualan'] = $this->m_apotek->invoice($config['per_page'],  $data['start'], $data['keyword']);
+        // print_r($data['penjualan']);
+        // die;
+
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);
         $this->load->view('template/admin/aside', $data);
@@ -99,6 +102,7 @@ class Penjualan extends CI_Controller
         $data['judul'] = 'Tambah Penjualan Obat';
         $data['obat'] =  $this->m_apotek->daftar_obat();
         $data['exp'] = $this->data['exp'];
+        $data['nullstock'] = $this->data['nullstock'];
 
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);

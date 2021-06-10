@@ -60,9 +60,9 @@
                                         <?php
                                         foreach ($obat as $key) { ?>
                                             <div class="col-lg-4 col-xl-3 col-sm-12">
-                                                <a href="<?= base_url('obat/detail_obat/') . $key['id_obat'] ?>">
+                                                <a href="<?= base_url('dashboard/detail_obat/') . $key['id_obat'] ?>">
                                                     <div class="badge-box">
-                                                        <div class="sub-title"><a href="<?= base_url('obat/detail_obat/') . $key['id_obat'] ?>"><?= $key['nama_obat'] ?>
+                                                        <div class="sub-title"><a href="<?= base_url('dashboard/detail_obat/') . $key['id_obat'] ?>"><?= $key['nama_obat'] ?>
 
                                                         </div>
                                                         <a href="<?= base_url('assets/gambar_obat/' . $key['gambar']); ?>">

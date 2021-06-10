@@ -59,7 +59,7 @@
             border-radius: 4px;
             padding: 5px;
             width: 100%;
-            height: 500px;
+            height: 250px;
         }
 
         .img-obat:hover {

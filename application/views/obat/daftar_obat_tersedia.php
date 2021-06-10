@@ -84,8 +84,8 @@
                                             <tr>
                                                 <th scope="row"><?= ++$start; ?></th>
                                                 <td><?= $key['nama_obat'] ?></td>
-                                                <td>Rp.<?= number_format($key['harga_default'], 0, ',', '.') ?>,-</td>
-                                                <td><?= $key['stok']; ?></td>
+                                                <td>Rp.<?= number_format($key['harga_jual'], 0, ',', '.') ?>,-</td>
+                                                <td><?= $key['stok_obat']; ?></td>
                                                 <td class="text-primary"><?= $key['tgl_expired'] ?></td>
                                             </tr>
                                         <?php } ?>

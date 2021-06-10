@@ -100,28 +100,25 @@
                                     <?php } ?>
 
                                     <div class="row text-center">
-                                        <?php foreach ($get_user as $gu) { ?>
-                                            <div class="col-sm-12 text-left">
-                                                <h4 class="sub-title">Dikirim ke: </h4>
-                                                <address>
-                                                    <h6><b>Nama : </b> <?= $gu->nama; ?></h6>
-
-                                                    <h6>
-                                                        <b>Alamat :</b> <?= $gu->alamat; ?>, <?= $gu->nama_kelurahan; ?>, <?= $gu->nama_kecamatan; ?>, <?= $gu->nama_kabupaten; ?>, <?= $gu->nama_provinsi; ?>
-                                                    </h6>
-                                                </address>
-                                            </div>
+                                        <div class="col-sm-12 text-left">
+                                            <h4 class="sub-title">Dikirim ke: </h4>
+                                            <address>
+                                                <h6><b>Nama : </b> <?= $get_user['nama']; ?></h6>
+                                                <h6>
+                                                    <b>Alamat :</b> <?= $get_user['alamat']; ?>, <?= $get_user['nama_kelurahan']; ?>, <?= $get_user['nama_kecamatan']; ?>, <?= $get_user['nama_kabupaten']; ?>, <?= $get_user['nama_provinsi']; ?>
+                                                </h6>
+                                            </address>
+                                        </div>
                                     </div>
-                                <?php } ?>
-                                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                                    Terima kasih sudah mempercayakan kami sebagai mitra pelayanan Anda.
-                                </p>
+                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                        Terima kasih sudah mempercayakan kami sebagai mitra pelayanan Anda.
+                                    </p>
 
-                                <div class="row no-print">
-                                    <div class="col-xs-12 ml-3">
-                                        <button class="btn btn-success" onclick="window.print();"><i class="fa fa-print"></i> Cetak</button>
+                                    <div class="row no-print">
+                                        <div class="col-xs-12 ml-3">
+                                            <button class="btn btn-success" onclick="window.print();"><i class="fa fa-print"></i> Cetak</button>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <!-- List Tag card end -->

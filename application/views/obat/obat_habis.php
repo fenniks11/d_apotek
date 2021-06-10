@@ -56,11 +56,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Obat</th>
-                                            <th>Kategori</th>
+                                            <th>Kategori & Jenis</th>
                                             <th>Stok</th>
                                             <th>Kadaluarsa</th>
                                             <th>Harga Jual</th>
-                                            <th>Jenis</th>
                                             <th>Suplier</th>
                                         </tr>
                                     </thead>
@@ -78,11 +77,10 @@
                                                 <tr>
                                                     <th scope="row"><?= $no++; ?></th>
                                                     <td><?= $sH->nama_obat ?></td>
-                                                    <td><?= $sH->nama_kategori ?></td>
+                                                    <td><?= $sH->nama_kategori ?> - <?= $sH->jenis ?></td>
                                                     <td><?= $sH->stok ?></td>
                                                     <td><?= $sH->tgl_expired ?></td>
                                                     <td><?= $sH->harga_default ?></td>
-                                                    <td><?= $sH->jenis ?></td>
                                                     <td><?= $sH->nama_sup ?></td>
                                                 </tr>
 
@@ -117,11 +115,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Obat</th>
-                                            <th>Kategori</th>
+                                            <th>Kategori & Jenis</th>
                                             <th>Stok</th>
                                             <th>Kadaluarsa</th>
                                             <th>Harga Jual</th>
-                                            <th>Jenis</th>
                                             <th>Suplier</th>
                                         </tr>
                                     </thead>
@@ -139,11 +136,10 @@
                                                 <tr>
                                                     <th scope="row"><?= $no++; ?></th>
                                                     <td><?= $sH->nama_obat ?></td>
-                                                    <td><?= $sH->nama_kategori ?></td>
+                                                    <td><?= $sH->nama_kategori ?> - <?= $sH->jenis ?></td>
                                                     <td><?= $sH->stok ?></td>
                                                     <td><?= $sH->tgl_expired ?></td>
                                                     <td><?= $sH->harga_default ?></td>
-                                                    <td><?= $sH->jenis ?></td>
                                                     <td><?= $sH->nama_sup ?></td>
                                                 </tr>
 

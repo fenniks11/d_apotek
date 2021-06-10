@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="penjualan">
                                 <div class="card-block">
                                     <div class="card-header-right">
                                         <form action="<?= base_url('penjualan/daftar') ?>" method="POST">
@@ -87,7 +87,6 @@
                                     <tr>
                                         <th>No</th>
                                         <th class="text-center">#</th>
-                                        <th>Tanggal Transaksi</th>
                                         <th>No. Referensi</th>
                                         <th>Email Pembeli</th>
                                         <th>Banyak Beli</th>
@@ -125,21 +124,35 @@
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td><?= tanggal($p['tgl_beli']); ?></td>
                                             <td><?= $p['no_ref'] ?></td>
                                             <td><?= $p['member_email']; ?></td>
                                             <td><?= $p['banyak']; ?></td>
-                                            <td><?= $p['nama']; ?></td>
+                                            <?php
+                                            $id_admin = $p['user_id'];
+                                            $query = ("SELECT nama as admin from user where user_id = $id_admin");
+                                            $admin = $this->db->query($query)->result_array();
+
+
+                                            ?>
+                                            <?php foreach ($admin as $a) : ?>
+                                                <td><?= $p['user_id']; ?> - <?= $a['admin']; ?></td>
+                                            <?php endforeach; ?>
                                             <td>Rp. <?= number_format($p['grandtotal'], 0, ',', '.'); ?>,-</td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
-                        <?= $this->pagination->create_links(); ?>
                     </div>
                 </div>
+                <?= $this->pagination->create_links(); ?>
             </div>
         </div>
     </div>
 </div>
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#penjualan').DataTable();
+    });
+</script> -->

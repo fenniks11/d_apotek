@@ -45,9 +45,9 @@ class Pembelian extends CI_Controller
 
         $this->db->like('nama_sup', $data['keyword']);
         $this->db->from('obat');
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
         $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->order_by('tgl_beli', 'DESC');
+        // $this->db->order_by('tgl_beli', 'DESC');
         $config['base_url'] = 'http://localhost/d_apotek/pembelian/daftar/';
         $config['total_rows'] = $this->db->count_all_results();
         $data['total_rows'] =  $config['total_rows'];
@@ -60,6 +60,10 @@ class Pembelian extends CI_Controller
 
         // purchase
         $data['purchase'] = $this->m_apotek->purchase($config['per_page'],  $data['start'],  $data['keyword']);
+        // print_r($data['purchase']);
+        // print_r("\n");
+        // print_r($data['show_purchase']);
+        // die;
 
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);
@@ -144,6 +148,7 @@ class Pembelian extends CI_Controller
         $where = array('no_ref' => $no_ref);
         $data['purchase'] = $this->m_apotek->ambil_purchase($where, 'purchase')->result();
         $data['show_purchase'] = $this->m_apotek->show_purchase($where, 'purchase')->result();
+
         // $data['pembelian'] = $this->m_apotek->allPurchase($where);
 
         $this->load->view('template/admin/header', $data);

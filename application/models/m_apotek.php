@@ -15,7 +15,7 @@ class M_apotek extends CI_Model
         $this->db->join('kecamatan', 'alm_user.kecamatan = kecamatan.id_kecamatan');
         $this->db->join('kelurahan', 'alm_user.kelurahan = kelurahan.id_kelurahan');
         $this->db->where('member_email', $data);
-        return $this->db->get()->result();
+        return $this->db->get()->row_array();
     }
     public function getDataPembeli($data)
     {
@@ -64,17 +64,24 @@ class M_apotek extends CI_Model
         if ($keyword) {
             $this->db->like('nama_obat', $keyword);
         }
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get('obat', $limit, $start)->result_array();
+
+        // Mengambil Nilai dari view semua_obat_d_apotek
+        return $this->db->get('semua_obat_d_apotek', $limit, $start)->result_array();
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        // $this->db->order_by('obat.id_obat', 'DESC');
+        // select nama_obat, harga_default, harga_beli, stok, tgl_expired from obat join detail_obat on obat.id_obat = detail_obat.id_obat  order by obat.id_obat DESC.
+        // return $this->db->get('obat', $limit, $start)->result_array();
     }
     public function obatTersedia($limit, $start)
     {
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()', $limit, $start)->result_array();
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        // $this->db->order_by('obat.id_obat', 'DESC');
+        // return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()', $limit, $start)->result_array();
+
+        // mengambil isi dari view obat_tersedia
+        return $this->db->get('obat_tersedia', $limit, $start)->result_array();
     }
     public function obatDijual($limit, $start, $keyword)
     {
@@ -91,12 +98,12 @@ class M_apotek extends CI_Model
         if ($keyword) {
             $this->db->like('nama_obat', $keyword);
         }
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
-        $this->db->where('obat.id_kategori', 1);
-        $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get('obat', $limit, $start)->result_array();
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        // $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
+        // $this->db->where('obat.id_kategori', 1);
+        // $this->db->order_by('obat.id_obat', 'DESC');
+        return $this->db->get('obat_bebas', $limit, $start)->result_array();
     }
     public function obatBebasTerbatas($limit, $start, $keyword = null)
     {
@@ -126,10 +133,16 @@ class M_apotek extends CI_Model
     // hitung obat
     public function count_obat()
     {
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()')->num_rows();
+        // $this->db->select('count *');
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        // $this->db->order_by('obat.id_obat', 'DESC');
+        // return $this->db->get_where('obat', 'stok > 0 and tgl_expired >= now()')->num_rows();
+        // $query = ("SELECT COUNT(*) as jumlah FROM `obat_tersedia`");
+        // return $this->db->query($query)->result_array();
+
+        // mengambil jumlah baris dari view obat_tersedia
+        return $this->db->get('obat_tersedia')->num_rows();
     }
 
     // hitung user
@@ -178,14 +191,9 @@ class M_apotek extends CI_Model
 
     public function detail_obat($data)
     {
-        $this->db->select('*');
-        $this->db->from('obat');
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
-        $this->db->join('jenis_obat', 'detail_obat.id_jenis = jenis_obat.id_jenis');
-        $this->db->where('obat.id_obat', $data);
-        return $this->db->get()->row();
+        // Mengambil isi view detail_semua_obat
+        $this->db->where('id_obat', $data);
+        return $this->db->get('detail_semua_obat')->row();
     }
     public function ambilData()
     {
@@ -251,12 +259,15 @@ class M_apotek extends CI_Model
 
     public function obat_expired()
     {
-        return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE tgl_expired BETWEEN DATE_SUB(NOW(), INTERVAL 40 YEAR) AND NOW()');
+        // return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE tgl_expired BETWEEN DATE_SUB(NOW(), INTERVAL 40 YEAR) AND NOW()');
+        // Mengambil isi view obat_expired
+        return $this->db->get('obat_expired');
     }
 
     public function hampirExp()
     {
-        return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE tgl_expired BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 60 DAY)');
+        // return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE tgl_expired BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 60 DAY)');
+        return $this->db->get('obat_akan_kadaluarsa');
     }
 
     public function countex()
@@ -300,7 +311,16 @@ class M_apotek extends CI_Model
 
     public function stokHabis()
     {
-        return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok <0');
+        // Mengambil isi dari view obat_habis
+        return $this->db->get('obat_habis');
+        // return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok <0');
+    }
+
+    function stok_hampir_habis()
+    {
+        //  Mengambil isi dari view obat_hampir_habis
+        return $this->db->get('obat_hampir_habis');
+        // return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok BETWEEN 1 AND 8');
     }
 
     public function countstock()
@@ -310,10 +330,6 @@ class M_apotek extends CI_Model
         return $nullstock;
     }
 
-    function stok_hampir_habis()
-    {
-        return $this->db->query('select *  from obat join detail_obat on obat.id_obat = detail_obat.id_obat join suplier on obat.id_suplier = suplier.id_suplier join kategori on obat.id_kategori = kategori.id_kategori join jenis_obat on detail_obat.id_jenis = jenis_obat.id_jenis WHERE stok BETWEEN 1 AND 8');
-    }
 
     function kategori()
     {
@@ -443,7 +459,6 @@ class M_apotek extends CI_Model
             $this->db->like('nama_pembeli', $keyword);
         }
         $this->db->select('*');
-        $this->db->join('user', 'invoice.user_id = invoice.user_id');
         $this->db->select_sum('invoice.banyak');
         $this->db->group_by('no_ref');
         $this->db->order_by('tgl_beli', 'DESC');
@@ -515,7 +530,21 @@ class M_apotek extends CI_Model
         $this->db->group_by('no_ref');
         $this->db->order_by('tgl_beli', 'DESC');
 
+        // "select * from purchase sum(purchase.banyak) as banyak_obat join obat "
+
         return $this->db->get('purchase', $limit, $start)->result_array();
+
+        //     function invoice($limit, $start, $keyword = null)
+        // {
+        //     if ($keyword) {
+        //         $this->db->like('nama_pembeli', $keyword);
+        //     }
+        //     $this->db->select('*');
+        //     $this->db->select_sum('invoice.banyak');
+        //     $this->db->group_by('no_ref');
+        //     $this->db->order_by('tgl_beli', 'DESC');
+        //     return $this->db->get('invoice', $limit, $start)->result_array();
+        // }
     }
 
     function allPurchase($where)

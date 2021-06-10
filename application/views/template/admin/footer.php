@@ -12,6 +12,9 @@
 <!-- notification js -->
 
 
+<!-- data tables -->
+<script src="<?= base_url('assets/datatables.min.js') ?>"></script>
+
 <script type="text/javascript" src="<?= base_url() ?>assets/js/bootstrap-growl.min.js"></script>
 <!-- Custom js -->
 <script type="text/javascript" src="<?= base_url() ?>assets/js/script.js"></script>

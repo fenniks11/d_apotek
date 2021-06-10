@@ -16,12 +16,7 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        // Join ke 3 table untuk memperoleh data user dan
-        $this->db->select('*');
-        $this->db->join('detail_user', 'user.user_id = detail_user.user_id');
-        $this->db->join('user_role', 'detail_user.role_id = user_role.role_id', 'left');
-        $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('data_user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['judul'] = 'Admin';
         $data['exp'] = $this->data['exp'];

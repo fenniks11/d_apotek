@@ -56,11 +56,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Obat</th>
-                                            <th>Kategori</th>
+                                            <th>Kategori & Jenis</th>
                                             <th>Stok</th>
                                             <th>Kadaluarsa</th>
-                                            <th>Harga Jual</th>
-                                            <th>Jenis</th>
+                                            <th>Harga Beli</th>
                                             <th>Suplier</th>
                                         </tr>
                                     </thead>
@@ -78,11 +77,10 @@
                                                 <tr>
                                                     <th scope="row"><?= $no++; ?></th>
                                                     <td><?= $exp->nama_obat ?></td>
-                                                    <td><?= $exp->nama_kategori ?></td>
+                                                    <td><?= $exp->nama_kategori ?> - <?= $exp->jenis ?></td>
                                                     <td><?= $exp->stok ?></td>
-                                                    <td><?= $exp->tgl_expired ?></td>
-                                                    <td><?= $exp->harga_default ?></td>
-                                                    <td><?= $exp->jenis ?></td>
+                                                    <td class="text-danger"><?= $exp->tgl_expired ?></td>
+                                                    <td>Rp.<?= number_format($exp->harga_beli, 0, ',', '.') ?>,-</td>
                                                     <td><?= $exp->nama_sup ?></td>
                                                 </tr>
 
@@ -117,11 +115,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Obat</th>
-                                            <th>Kategori</th>
+                                            <th>Kategori & Jenis</th>
                                             <th>Stok</th>
                                             <th>Kadaluarsa</th>
-                                            <th>Harga Jual</th>
-                                            <th>Jenis</th>
+                                            <th>Harga Beli</th>
                                             <th>Suplier</th>
                                         </tr>
                                     </thead>
@@ -139,11 +136,10 @@
                                                 <tr>
                                                     <th scope="row"><?= $no++; ?></th>
                                                     <td><?= $hExp->nama_obat ?></td>
-                                                    <td><?= $hExp->nama_kategori ?></td>
+                                                    <td><?= $hExp->nama_kategori ?> - <?= $hExp->jenis ?></td>
                                                     <td><?= $hExp->stok ?></td>
-                                                    <td><?= $hExp->tgl_expired ?></td>
-                                                    <td><?= $hExp->harga_default ?></td>
-                                                    <td><?= $hExp->jenis ?></td>
+                                                    <td class="text-danger"><?= $hExp->tgl_expired ?></td>
+                                                    <td>Rp.<?= number_format($exp->harga_beli, 0, ',', '.') ?>,-</td>
                                                     <td><?= $hExp->nama_sup ?></td>
                                                 </tr>
 
