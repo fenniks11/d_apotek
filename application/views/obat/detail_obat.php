@@ -35,7 +35,6 @@
                 <div class="page-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <!-- Text elements start -->
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Detail Obat</h4>
@@ -50,20 +49,31 @@
                                     <h4 class="sub-title"></h4>
                                     <div class="row">
                                         <div class="col-sm-12 col-xl-6">
-                                            <h1><strong><?= $detailObat_id->nama_obat; ?></strong></h1>
-                                            <a href="<?= base_url('assets/gambar_obat/' . $detailObat_id->gambar); ?>">
-                                                <img class="img-obat" src="<?= base_url('assets/gambar_obat/' . $detailObat_id->gambar); ?>" alt="" width=""><br>
-                                            </a>
-                                            <h5>Harga Beli <span>Rp.<?= number_format($detailObat_id->harga_beli, 0, ',', '.') ?>,-</span></h5>
-                                            <h5>Harga Jual <span>Rp.<?= number_format($detailObat_id->harga_default, 0, ',', '.') ?>,-</span></h5>
-                                            <h5>Berat: <span><?= $detailObat_id->berat ?></span></h5>
-                                            <h5>Stok Obat: <span><?= $detailObat_id->stok ?></span></h5>
-                                            <span class="text-dark">
-                                                Kategori: <a href="<?= base_url('kategori_dan_jenis/daftar') ?>" class="text-info"><?= $detailObat_id->nama_kategori; ?></a>
-                                            </span> &
-                                            <span>
-                                                Jenis: <?= $detailObat_id->jenis; ?>
-                                            </span>
+                                            <ul>
+                                                <li>
+                                                    <a href="<?= base_url('assets/gambar_obat/' . $detailObat_id->gambar); ?>">
+                                                        <img class="img-obat" src="<?= base_url('assets/gambar_obat/' . $detailObat_id->gambar); ?>" class="rounded mx-auto d-block"><br>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <h4><span class="badge badge-light col-lg">Stok Obat: <?= $detailObat_id->stok ?></span></h4>
+                                                </li>
+                                                <li>
+                                                    <h4><span class="badge badge-light col-lg">Kategori & Jenis: <?= $detailObat_id->nama_kategori ?> - <?= $detailObat_id->jenis ?></span></h4>
+                                                </li>
+                                                <div class="row mt-2">
+                                                    <div class="col-6">
+                                                        <li>
+                                                            <h4><span class="badge badge-info col-lg">Rp.<?= number_format($detailObat_id->harga_default, 0, ',', '.') ?>,-</span></h4>
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <li>
+                                                            <h4><span class="badge badge-primary col-lg">Berat: <?= $detailObat_id->berat ?></span></h4>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </ul>
 
                                         </div>
                                         <div class="col-sm-12 col-xl-6">
@@ -77,22 +87,30 @@
                                             <p>
                                                 Suplier: <span><?= $detailObat_id->nama_sup; ?></span>
                                             </p>
-                                            <?php
-                                            $persediaan = $detailObat_id->persediaan;
-                                            if ($persediaan == 'Y') {
-                                            ?>
-                                                <p>
-                                                    Persediaan: <span class="text-success">Tersedia</span>
-                                                </p>
-                                                <p class="text-danger">
-                                                    Expired Date: <span><?= $detailObat_id->tgl_expired; ?></span>
-                                                </p>
-                                            <?php
-                                            } else { ?>
-                                                <p>
-                                                    Persediaan: <span class="text-danger">Tidak Tersedia</span>
-                                                </p>
-                                            <?php } ?>
+                                            <div class="align-content-end flex-wrap">
+                                                <?php
+                                                $persediaan = $detailObat_id->persediaan;
+                                                if ($persediaan == 'Y') {
+                                                ?>
+                                                    <ul>
+                                                        <li>
+
+                                                            <h5><span class="badge badge-success col-lg">Persediaan: Tersedia</span></h5>
+                                                        </li>
+                                                        <li>
+                                                            <h5><span class="badge badge-warning col-lg">Expired Date: <?= $detailObat_id->tgl_expired; ?></span></h5>
+
+                                                        </li>
+                                                    </ul>
+                                                <?php
+                                                } else { ?>
+
+                                                    <h5><span class="badge badge-danger col-lg">
+                                                            Persediaan: Tidak Tersedia
+                                                        </span>
+                                                    </h5>
+                                                <?php } ?>
+                                            </div>
 
                                         </div>
                                     </div>

@@ -63,6 +63,27 @@ class Obat extends CI_Controller
         $this->load->view('obat/daftar_obat', $data);
         $this->load->view('template/admin/footer', $data);
     }
+
+    // public function export_csv()
+    // {
+    //     // END PAGINATION
+    //     $data['obat'] =  $this->m_apotek->obatPerPage();
+    //     // file name 
+    //     $filename = 'semua_obat' . date('Ymd') . '.csv';
+    //     header("Content-Description: File Transfer");
+    //     header("Content-Disposition: attachment; filename=$filename");
+    //     header("Content-Type: application/csv; ");
+    //     // file creation 
+    //     $file = fopen('php://output', 'w');
+    //     $header = array("Nama Obat", "Harga Default", "Stok", "Tanggal Exp");
+    //     fputcsv($file, $header);
+    //     foreach ($data['obat'] as $key => $line) {
+    //         fputcsv($file, $line);
+    //     }
+    //     fclose($file);
+    //     exit;
+    // }
+
     public function obat_tersedia()
     {
         $this->db->select('*');

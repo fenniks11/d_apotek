@@ -42,13 +42,16 @@
                             <!-- List Tag card start -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h6><?= $invoice[0]->tgl_beli; ?> - <?= $invoice[0]->no_ref; ?> </h6>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                        </ul>
-                                        <i class="icofont icofont-spinner-alt-5"></i>
-                                    </div>
+                                    <?php if (empty($invoice && $get_user)) { ?>
+                                        <h3 class="text-center">Belum ada riwayat pembelian. <span class="badge badge-warning col-lg text-black text-center"><a href="<?= base_url('dashboard') ?>">Silahkan berbelanja</a></span> </h3>
+                                    <?php } else { ?>
+                                        <h6><?= $invoice[0]->tgl_beli; ?> - <?= $invoice[0]->no_ref; ?> </h6>
+                                        <div class="card-header-right">
+                                            <ul class="list-unstyled card-option">
+                                                <li><i class="icofont icofont-minus minimize-card"></i></li>
+                                            </ul>
+                                            <i class="icofont icofont-spinner-alt-5"></i>
+                                        </div>
                                 </div>
                                 <div class="card-block list-tag">
                                     <div class="text-center">
@@ -109,10 +112,10 @@
                                         <div class="col-sm-12 text-left">
                                             <h4 class="sub-title">Dikirim ke: </h4>
                                             <address>
-                                                <h6><b>Nama : </b> <?= $get_user[0]->nama; ?></h6>
+                                                <h6><b>Nama : </b> <?= $get_user['nama']; ?></h6>
 
                                                 <h6>
-                                                    <b>Alamat :</b> <?= $get_user[0]->alamat; ?>, <?= $get_user[0]->nama_kelurahan; ?>, <?= $get_user[0]->nama_kecamatan; ?>, <?= $get_user[0]->nama_kabupaten; ?>, <?= $get_user[0]->nama_provinsi; ?>
+                                                    <b>Alamat :</b> <?= $get_user['alamat']; ?>, <?= $get_user['nama_kelurahan']; ?>, <?= $get_user['nama_kecamatan']; ?>, <?= $get_user['nama_kabupaten']; ?>, <?= $get_user['nama_provinsi']; ?>
                                                 </h6>
                                             </address>
                                         </div>
@@ -126,6 +129,8 @@
                                             <button class="btn btn-success" onclick="window.print();"><i class="fa fa-print"></i> Cetak</button>
                                         </div>
                                     </div>
+
+                                <?php } ?>
                                 </div>
                             </div>
                             <!-- List Tag card end -->

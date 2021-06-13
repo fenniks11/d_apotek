@@ -83,8 +83,8 @@ class Penjualan extends CI_Controller
         $data['get_user'] = $this->m_apotek->getUser($member_email);
         $where = array('no_ref' => $no_ref);
         $data['invoice'] = $this->m_apotek->show_data($where, 'invoice')->result();
-        $data['show_invoice'] = $this->m_apotek->show_invoice($where, 'invoice')->result();
-
+        $data['show_invoice'] = $this->m_apotek->show_invoice($where)->result();
+        // 
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);
         $this->load->view('template/admin/aside', $data);

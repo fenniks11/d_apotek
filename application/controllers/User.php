@@ -22,19 +22,27 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['judul'] = 'Halaman Utama User';
 
+        // if ($this->db->get_where('invoice', 'member_email = ""', 'user_id = ""')) {
+        //     redirect('dashboard');
+        // } else {
         $data['penjualan'] = $this->m_apotek->allInvoice();
         $member_email = $data['user']['email'];
 
         // mengambil data nama user dan alamatnya.
         $data['get_user'] = $this->m_apotek->getUser($member_email);
-        $where = array('member_email' => $member_email);
-        $data['invoice'] = $this->m_apotek->show_data($where, 'invoice')->result();
-        $data['show_invoice'] = $this->m_apotek->show_invoice($where, 'invoice')->result();
+        // print_r($member_email);
+        // print_r($data['get_user']);
+        // die;
+        // $where = array('member_email' => $member_email);
+        // $data['invoice'] = $this->m_apotek->show_data($where, 'v_invoice')->result();
+
+        // $data['show_invoice'] = $this->m_apotek->show_invoice($where, 'v_invoice')->result();
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
         $this->load->view('template/user/content', $data);
         $this->load->view('template/footer');
+        // }
     }
     public function cekout()
     {

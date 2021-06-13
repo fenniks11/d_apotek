@@ -83,7 +83,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <thead>
+                                <thead class="text-center">
                                     <tr>
                                         <th>No</th>
                                         <th class="text-center">#</th>
@@ -94,7 +94,7 @@
                                         <th>Total</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
                                     <?php
                                     if (empty($penjualan)) :
                                     ?>
@@ -127,19 +127,10 @@
                                             <td><?= $p['no_ref'] ?></td>
                                             <td><?= $p['member_email']; ?></td>
                                             <td><?= $p['banyak']; ?></td>
-                                            <?php
-                                            $id_admin = $p['user_id'];
-                                            $query = ("SELECT nama as admin from user where user_id = $id_admin");
-                                            $admin = $this->db->query($query)->result_array();
-
-
-                                            ?>
-                                            <?php foreach ($admin as $a) : ?>
-                                                <td><?= $p['user_id']; ?> - <?= $a['admin']; ?></td>
-                                            <?php endforeach; ?>
+                                            <td> <?= $p['nama_admin']; ?></td>
                                             <td>Rp. <?= number_format($p['grandtotal'], 0, ',', '.'); ?>,-</td>
+                                        <?php endforeach; ?>
                                         </tr>
-                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -151,8 +142,8 @@
     </div>
 </div>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
         $('#penjualan').DataTable();
     });
-</script> -->
+</script>

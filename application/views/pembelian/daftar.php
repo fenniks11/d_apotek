@@ -118,7 +118,7 @@
                                             <td><?= $p['nama_sup']; ?></td>
                                             <td><?= $p['banyak']; ?></td>
                                             <td>Rp. <?= number_format($p['grandtotal'], 0, ',', '.'); ?>,-</td>
-                                            <td><?= $p['nama']; ?></td>
+                                            <td><?= $p['nama_admin']; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

@@ -53,8 +53,8 @@
                         <div class="card-block table-border-style">
                             <div class="row mt-3 mb-3 ml-3">
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Export to CSV">CSV
-                                    </button>
+                                    <a class="btn btn-default waves-effect" href="<?= base_url('obat/export_csv') ?>" data-toggle="tooltip" data-placement="top" title="Export to CSV">CSV
+                                    </a>
                                     <button type="button" class="btn btn-default waves-effect " data-toggle="tooltip" data-placement="top" title="Export to Excel">Excel
                                     </button>
                                     <button type="button" class="btn btn-danger waves-effect btn-out-dotted" data-toggle="tooltip" data-placement="top" title="Cetak"><i class="ti-printer"></i>

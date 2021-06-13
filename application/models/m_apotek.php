@@ -6,16 +6,18 @@ class M_apotek extends CI_Model
 
     public function getUser($data)
     {
-        $this->db->select('*');
-        $this->db->from('invoice');
-        $this->db->join('user', 'invoice.member_email = user.email');
-        $this->db->join('alm_user', 'user.user_id = alm_user.user_id');
-        $this->db->join('provinsi', 'alm_user.provinsi = provinsi.id_provinsi');
-        $this->db->join('kabupaten', 'alm_user.kabkot = kabupaten.id_kabupaten');
-        $this->db->join('kecamatan', 'alm_user.kecamatan = kecamatan.id_kecamatan');
-        $this->db->join('kelurahan', 'alm_user.kelurahan = kelurahan.id_kelurahan');
-        $this->db->where('member_email', $data);
-        return $this->db->get()->row_array();
+        // $this->db->select('*');
+        // $this->db->from('invoice');
+        // $this->db->join('user', 'invoice.member_email = user.email');
+        // $this->db->join('alm_user', 'user.user_id = alm_user.user_id');
+        // $this->db->join('provinsi', 'alm_user.provinsi = provinsi.id_provinsi');
+        // $this->db->join('kabupaten', 'alm_user.kabkot = kabupaten.id_kabupaten');
+        // $this->db->join('kecamatan', 'alm_user.kecamatan = kecamatan.id_kecamatan');
+        // $this->db->join('kelurahan', 'alm_user.kelurahan = kelurahan.id_kelurahan');
+
+        // mengambil nilai dari view alamat_user
+        $this->db->where('email', $data);
+        return $this->db->get('alamat_user')->row_array();
     }
     public function getDataPembeli($data)
     {
@@ -103,6 +105,8 @@ class M_apotek extends CI_Model
         // $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
         // $this->db->where('obat.id_kategori', 1);
         // $this->db->order_by('obat.id_obat', 'DESC');
+
+        // mengambil nilai dari view obat_bebas
         return $this->db->get('obat_bebas', $limit, $start)->result_array();
     }
     public function obatBebasTerbatas($limit, $start, $keyword = null)
@@ -110,24 +114,27 @@ class M_apotek extends CI_Model
         if ($keyword) {
             $this->db->like('nama_obat', $keyword);
         }
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
-        $this->db->where('obat.id_kategori', 2);
-        $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get('obat', $limit, $start)->result_array();
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        // $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
+        // $this->db->where('obat.id_kategori', 2);
+        // $this->db->order_by('obat.id_obat', 'DESC');
+
+        //  // mengambil nilai dari view obat_bebas_terbatas
+        return $this->db->get('obat_bebas_terbatas', $limit, $start)->result_array();
     }
     public function obatKeras($limit, $start, $keyword = null)
     {
         if ($keyword) {
             $this->db->like('nama_obat', $keyword);
         }
-        $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
-        $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
-        $this->db->where('obat.id_kategori', 3);
-        $this->db->order_by('obat.id_obat', 'DESC');
-        return $this->db->get('obat', $limit, $start)->result_array();
+        // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
+        // $this->db->join('kategori', 'obat.id_kategori = kategori.id_kategori');
+        // $this->db->where('obat.id_kategori', 3);
+        // $this->db->order_by('obat.id_obat', 'DESC');
+        // Mengambil nilai dari view obat_keras
+        return $this->db->get('obat_keras', $limit, $start)->result_array();
     }
 
     // hitung obat
@@ -456,13 +463,14 @@ class M_apotek extends CI_Model
     function invoice($limit, $start, $keyword = null)
     {
         if ($keyword) {
-            $this->db->like('nama_pembeli', $keyword);
+            $this->db->like('member_email', $keyword);
         }
-        $this->db->select('*');
-        $this->db->select_sum('invoice.banyak');
-        $this->db->group_by('no_ref');
-        $this->db->order_by('tgl_beli', 'DESC');
-        return $this->db->get('invoice', $limit, $start)->result_array();
+        // $this->db->select('*');
+        // $this->db->select_sum('invoice.banyak');
+        // $this->db->group_by('no_ref');
+        // $this->db->order_by('tgl_beli', 'DESC');
+        // ambil nilai dari view v_invoice
+        return $this->db->get('v_invoice', $limit, $start)->result_array();
     }
     function allInvoice()
     {
@@ -489,9 +497,9 @@ class M_apotek extends CI_Model
         return $run_q;
     }
 
-    function show_invoice($where, $table)
+    function show_invoice($where)
     {
-        $run_q = $this->db->get_where($table, $where);
+        $run_q = $this->db->get_where('show_invoice', $where);
         return $run_q;
     }
     function show_purchase($where, $table)
@@ -519,32 +527,19 @@ class M_apotek extends CI_Model
     {
         if ($keyword) {
             $this->db->like('nama_sup', $keyword);
+            $this->db->or_like('no_ref', $keyword);
         }
-        $this->db->select('*');
-        $this->db->select_sum('purchase.banyak');
-        $this->db->join('obat', 'purchase.id_obat = obat.id_obat');
-        $this->db->join('detail_obat', 'purchase.id_obat = detail_obat.id_obat');
-        $this->db->join('suplier', 'purchase.id_suplier = suplier.id_suplier');
-        $this->db->join('user', 'purchase.user_id = user.user_id');
+        // $this->db->select('*');
+        // $this->db->select_sum('purchase.banyak');
+        // $this->db->join('obat', 'purchase.id_obat = obat.id_obat');
+        // $this->db->join('detail_obat', 'purchase.id_obat = detail_obat.id_obat');
+        // $this->db->join('suplier', 'purchase.id_suplier = suplier.id_suplier');
+        // $this->db->join('user', 'purchase.user_id = user.user_id');
 
-        $this->db->group_by('no_ref');
-        $this->db->order_by('tgl_beli', 'DESC');
+        // $this->db->group_by('no_ref');
+        // $this->db->order_by('tgl_beli', 'DESC');
 
-        // "select * from purchase sum(purchase.banyak) as banyak_obat join obat "
-
-        return $this->db->get('purchase', $limit, $start)->result_array();
-
-        //     function invoice($limit, $start, $keyword = null)
-        // {
-        //     if ($keyword) {
-        //         $this->db->like('nama_pembeli', $keyword);
-        //     }
-        //     $this->db->select('*');
-        //     $this->db->select_sum('invoice.banyak');
-        //     $this->db->group_by('no_ref');
-        //     $this->db->order_by('tgl_beli', 'DESC');
-        //     return $this->db->get('invoice', $limit, $start)->result_array();
-        // }
+        return $this->db->get('v_purchase', $limit, $start)->result_array();
     }
 
     function allPurchase($where)
