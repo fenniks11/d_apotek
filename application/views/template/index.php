@@ -1,7 +1,8 @@
 <!-- content -->
+
+
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
-
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="card">
@@ -25,6 +26,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Page-header end -->
                 <div class="page-body">
                     <div class="row">
@@ -45,9 +47,13 @@
                                 <?php endif ?>
 
                                 <div class="card-block">
-                                    <div class="row">
-                                        <?php
-                                        foreach ($obat as $key) { ?>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" onkeyup="live_search()" id="in_live_search" value="" placeholder="Cari obat...">
+                                        <small style="text-align: center;" class="form-text text-muted">Pencarian live</small>
+                                    </div>
+                                    <div id="daftar_obat" class="row">
+                                        <!-- <?php
+                                                foreach ($obat as $key) { ?>
                                             <div class="col-lg-4">
                                                 <div class="badge-box">
                                                     <div class="text-right">
@@ -82,7 +88,7 @@
 
                                                 </div>
                                             </div>
-                                        <?php } ?>
+                                        <?php } ?> -->
                                     </div>
                                 </div>
                                 <?= $this->pagination->create_links(); ?>
@@ -216,6 +222,76 @@
 </div>
 </div>
 
+<script src="<?= base_url() ?>assets/js/jquery/jquery-2.1.1.js"></script>
 <script>
-    console.log(<?= json_encode($obat) ?>);
+    var obat = <?= json_encode(($obat)) ?>, // array
+        list = [];
+
+    function to_m(x) {
+        return x.toString().replace(/\B(?<!.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    const template = (id, id_obat, nama, gambar, harga, stok, expired) => {
+        return `
+        <div id="obat_${id}" class="col-lg-4 obat-obat">
+    <div class="badge-box">
+        <div class="text-right">
+            <a href="dashboard/tambah_keranjang/${id_obat}">
+                <div class="btn btn-sm btn-primary waves-effect " data-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Tambah ke keranjang"><i class="ti-shopping-cart"> Tambah</i></div>
+            </a>
+        </div>
+        <a href="dashboard/detail_obat/${id_obat}">
+        </a>
+        <div class="sub-title mt-3 text-center"><a href="dashboard/detail_obat/${id_obat}"></a><a href="dashboard/detail_obat/${id_obat}">
+                <h5 class="text-dark"><b>${nama}</b></h5>
+            </a></div><a href="dashboard/detail_obat/${id_obat}">
+        </a><a href="assets/gambar_obat/${gambar}">
+            <img class="card-img" src="assets/gambar_obat/${gambar}" style="width:100%; height: 200px">
+        </a>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="badge badge-info col-lg">
+                    <span>Rp.${to_m(harga)},-</span>
+                </label>
+            </div>
+            <div class="col-sm-6">
+                <label class="badge badge-info col-lg">
+                    <span>Stok: ${stok}</span>
+                </label>
+            </div>
+        </div>  
+        <div class="col-lg">
+            <h5>
+                <span class="badge badge-warning col-lg">Exp: ${expired}</span>
+            </h5>
+        </div>
+    </div>
+</div>
+        `;
+    };
+
+    for (let i = 0; i < obat.length; i++) {
+        var b = obat[i],
+            o = {
+                nama: b.nama_obat.toUpperCase(),
+                dom: template(i, b.id_obat, b.nama_obat, b.gambar, b.harga_default, b.stok, b.tgl_expired)
+            };
+        list.push(o);
+    };
+
+    function live_search() {
+        var query = $("#in_live_search").val().toUpperCase(),
+            toShow = "";
+        if (!query.length) {
+            for (let i = 0; i < list.length; i++) toShow += list[i].dom;
+            $("#daftar_obat").html(toShow);
+            return;
+        }
+
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].nama.indexOf(query) > -1) toShow += list[i].dom;
+        }
+        $("#daftar_obat").html(toShow);
+    };
+    live_search();
 </script>

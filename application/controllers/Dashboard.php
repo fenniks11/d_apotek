@@ -13,7 +13,7 @@ class Dashboard extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         // cek jika dia admin, kembalikan dia ke halaman admin!
-        if ($data['user']['role_id'] == 1) {
+        if ($data['user'] && $data['user']['role_id'] == 1) {
             redirect('admin');
         };
         $data['judul'] = 'Halaman Utama';

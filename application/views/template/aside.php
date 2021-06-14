@@ -114,7 +114,7 @@
                     </ul>
                 <?php } ?>
 
-                <?php if ($user['role_id'] == 2) { ?>
+                <?php if (isset($user) && $user['role_id'] == 2) { ?>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="active">
                             <a href="index.html">
@@ -160,3 +160,13 @@
                 <?php } ?>
             </div>
         </nav>
+
+        <script src="<?= base_url() ?>assets/js/jquery/jquery-2.1.1.js"></script>
+
+        <?php if (isset($obat)) { ?>
+            <script>
+                console.log(<?= json_encode($obat) ?>);
+                console.log($("#daftar_obat").html());
+            </script>
+
+        <?php } ?>
