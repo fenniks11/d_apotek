@@ -481,7 +481,7 @@ class M_apotek extends CI_Model
         return $this->db->get('invoice')->result_array();
     }
 
-    function show_data($where, $table)
+    function show_data($table, $where)
     {
         $this->db->select('*');
         $this->db->select_sum('banyak');
@@ -497,9 +497,9 @@ class M_apotek extends CI_Model
         return $run_q;
     }
 
-    function show_invoice($where)
+    function show_invoice($table, $where)
     {
-        $run_q = $this->db->get_where('show_invoice', $where);
+        $run_q = $this->db->get_where($table, $where);
         return $run_q;
     }
     function show_purchase($where, $table)
@@ -562,5 +562,25 @@ class M_apotek extends CI_Model
         } else {
             return array();
         }
+    }
+
+    function get_subMenu($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('nama_obat', $keyword);
+        }
+
+        $this->db->join('user_menu', 'user_sub_menu.menu_id = user_menu.id');
+        $this->db->join('user_access_menu', 'user_access_menu.menu_id = user_menu.id');
+        $this->db->join('user_role', 'user_role.role_id = user_access_menu.role_id');
+        $this->db->order_by('user_sub_menu.menu_id');
+        return $this->db->get('user_sub_menu', $limit, $start)->result_array();
+
+        // $query = "SELECT `user_sub_menu`.*, `user_access_menu`.*, `user_menu`.`menu`, `user_role`.`nama_role` 
+        // from `user_sub_menu` join `user_menu`
+        //  on `user_sub_menu`.`menu_id` =  `user_menu`.`id` join `user_access_menu` on 
+        //  `user_access_menu`.`menu_id` =  `user_menu`.`id` join `user_role` 
+        //  on `user_role`.`role_id` = `user_access_menu`.`role_id`";
+        // return $this->db->query($query, $limit, $start)->result_array();
     }
 }

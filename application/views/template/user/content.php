@@ -42,7 +42,8 @@
                             <!-- List Tag card start -->
                             <div class="card">
                                 <div class="card-header">
-                                    <?php if (empty($invoice && $get_user)) { ?>
+                                    <?php
+                                    if (empty($invoice)) { ?>
                                         <h3 class="text-center">Belum ada riwayat pembelian. <span class="badge badge-warning col-lg text-black text-center"><a href="<?= base_url('dashboard') ?>">Silahkan berbelanja</a></span> </h3>
                                     <?php } else { ?>
                                         <h6><?= $invoice[0]->tgl_beli; ?> - <?= $invoice[0]->no_ref; ?> </h6>

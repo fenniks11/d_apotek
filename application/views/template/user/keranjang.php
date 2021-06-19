@@ -182,7 +182,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="<?= base_url('dasboard') ?>" class="btn btn-default">Lanjut Belanja</a>
+                                <a href="<?= base_url('dashboard') ?>" class="btn btn-default">Lanjut Belanja</a>
                                 <a href="<?= base_url('dashboard/hapus_keranjang') ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fas fa-trash"></i> Keranjang</a>
                             </div>
                         </div>

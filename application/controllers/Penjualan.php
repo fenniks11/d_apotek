@@ -24,7 +24,7 @@ class Penjualan extends CI_Controller
         $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['judul'] = 'Data Penjualan';
+        $data['judul'] = 'Penjualan';
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
         // // PAGINATION

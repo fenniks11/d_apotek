@@ -22,7 +22,11 @@
 
                         <!-- LOOPING MENU -->
                         <?php foreach ($menu as $m) :  ?>
-                            <li class="pcoded-hasmenu">
+                            <?php if ($judul == $m['menu']) : ?>
+                                <li class="pcoded-hasmenu active">
+                                <?php else : ?>
+                                <li class="pcoded-hasmenu">
+                                <?php endif; ?>
                                 <a href="javascript:void(0)">
                                     <span class="pcoded-micon"><i class="<?= $m['icon']; ?>"></i></span>
                                     <span class="pcoded-mtext"><?= $m['menu']; ?></span>
@@ -45,11 +49,10 @@
                                             </a>
                                         </li>
                                     </ul>
-
                                 <?php endforeach ?>
-                            </li>
-                            <br>
-                        <?php endforeach; ?>
+                                </li>
+                                <br>
+                            <?php endforeach; ?>
                     </ul>
                 <?php } else { ?>
                     <!-- Jika user belum daftar atau belum login maka, beri button login dan register -->
