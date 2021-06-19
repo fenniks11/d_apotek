@@ -225,7 +225,12 @@
 <script src="<?= base_url() ?>assets/js/jquery/jquery-2.1.1.js"></script>
 <script>
     var obat = <?= json_encode(($obat)) ?>, // array
-        list = [];
+        list = [],
+        absoluteP = window.location.origin,
+        paths = window.location.pathname.split('/'),
+        l_url = paths[1] == "d_apotek" ? `${absoluteP}/${paths[1]}` : absoluteP + "";
+
+
 
     function to_m(x) {
         return x.toString().replace(/\B(?<!.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -236,17 +241,17 @@
         <div id="obat_${id}" class="col-lg-4 obat-obat">
     <div class="badge-box">
         <div class="text-right">
-            <a href="dashboard/tambah_keranjang/${id_obat}">
+            <a href="${l_url}/dashboard/tambah_keranjang/${id_obat}">
                 <div class="btn btn-sm btn-primary waves-effect " data-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Tambah ke keranjang"><i class="ti-shopping-cart"> Tambah</i></div>
             </a>
         </div>
-        <a href="dashboard/detail_obat/${id_obat}">
+        <a href="${l_url}/dashboard/detail_obat/${id_obat}">
         </a>
-        <div class="sub-title mt-3 text-center"><a href="dashboard/detail_obat/${id_obat}"></a><a href="dashboard/detail_obat/${id_obat}">
+        <div class="sub-title mt-3 text-center"><a href="${l_url}/dashboard/detail_obat/${id_obat}"></a><a href="${l_url}/dashboard/detail_obat/${id_obat}">
                 <h5 class="text-dark"><b>${nama}</b></h5>
-            </a></div><a href="dashboard/detail_obat/${id_obat}">
-        </a><a href="assets/gambar_obat/${gambar}">
-            <img class="card-img" src="assets/gambar_obat/${gambar}" style="width:100%; height: 200px">
+            </a></div><a href="${l_url}/dashboard/detail_obat/${id_obat}">
+        </a><a href="${l_url}/assets/gambar_obat/${gambar}">
+            <img class="card-img" src="${l_url}/assets/gambar_obat/${gambar}" style="width:100%; height: 200px">
         </a>
         <div class="row">
             <div class="col-sm-6">
