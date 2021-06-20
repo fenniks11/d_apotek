@@ -26,7 +26,7 @@ class Kategori_dan_jenis extends CI_Controller
         $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['judul'] = 'Daftar Kategori dan Jenis Obat';
+        $data['judul'] = 'Kategori dan Jenis Obat';
         $data['daftar_kat'] = $this->m_apotek->kategori()->result();
         $data['daftar_jenis'] = $this->m_apotek->jenis()->result();
         $data['exp'] = $this->data['exp'];

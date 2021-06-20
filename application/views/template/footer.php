@@ -18,6 +18,17 @@
 <script src="<?= base_url() ?>assets/js/pcoded.min.js"></script>
 <script src="<?= base_url() ?>assets/js/demo-12.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    var $window = $(window);
+    var nav = $('.fixed-button');
+    $window.scroll(function() {
+        if ($window.scrollTop() >= 200) {
+            nav.addClass('active');
+        } else {
+            nav.removeClass('active');
+        }
+    });
+</script>
 </body>
 
 </html>

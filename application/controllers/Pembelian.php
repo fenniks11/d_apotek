@@ -28,7 +28,7 @@ class Pembelian extends CI_Controller
         $data['obat'] =  $this->m_apotek->daftar_obat();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
-        $data['judul'] = 'Daftar Pembelian Obat';
+        $data['judul'] = 'Pembelian';
         // PAGINATION
         $this->load->library('pagination'); //inisialisasi load library
 

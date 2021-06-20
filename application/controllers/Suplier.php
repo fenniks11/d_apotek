@@ -25,7 +25,7 @@ class Suplier extends CI_Controller
         $this->db->join('alm_user', 'user.user_id = alm_user.user_id', 'left');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['judul'] = 'Daftar Suplier Obat';
+        $data['judul'] = 'Suplier';
         $data['daftar_sup'] = $this->m_apotek->suplier()->result();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];

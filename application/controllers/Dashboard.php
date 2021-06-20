@@ -41,7 +41,7 @@ class Dashboard extends CI_Controller
         $config['base_url'] = 'http://localhost/d_apotek/dashboard/index/';
         $config['total_rows'] = $this->db->count_all_results();
         $data['total_rows'] =  $config['total_rows'];
-        $config['per_page'] = 6;
+        $config['per_page'] = 3;
 
         //INISIALISASI
         $this->pagination->initialize($config);

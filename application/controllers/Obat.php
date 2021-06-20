@@ -25,7 +25,7 @@ class Obat extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];
-        $data['judul'] = 'Daftar Obat';
+        $data['judul'] = 'Obat';
 
         // PAGINATION
         $this->load->library('pagination'); //inisialisasi load library

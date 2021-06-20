@@ -25,18 +25,21 @@ class User extends CI_Controller
         // if ($this->db->get_where('invoice', 'member_email = ""', 'user_id = ""')) {
         //     redirect('dashboard');
         // } else {
-        $data['penjualan'] = $this->m_apotek->allInvoice();
+        // $data['penjualan'] = $this->m_apotek->allInvoice();
+        // print_r($data['penjualan']);
+        // die;
         $member_email = $data['user']['email'];
-
         // mengambil data nama user dan alamatnya.
         $data['get_user'] = $this->m_apotek->getUser($member_email);
         // print_r($member_email);
         // print_r($data['get_user']);
         // die;
-        // $where = array('member_email' => $member_email);
-        // $data['invoice'] = $this->m_apotek->show_data($where, 'v_invoice')->result();
+        $where = array('member_email' => $member_email);
+        $data['invoice'] = $this->m_apotek->show_data('invoice', 'member_email', $member_email)->result();
+        print_r($data['invoice']);
+        die;
 
-        // $data['show_invoice'] = $this->m_apotek->show_invoice($where, 'v_invoice')->result();
+        $data['show_invoice'] = $this->m_apotek->show_invoice('show_invoice', 'member_email', $member_email)->result();
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);

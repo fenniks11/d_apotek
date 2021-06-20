@@ -3,17 +3,6 @@
         <nav class="pcoded-navbar">
             <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
             <div class="pcoded-inner-navbar main-menu">
-                <form action="<?= base_url('dashboard/index') ?>" method="POST">
-                    <div class="pcoded-search">
-                        <span class="searchbar-toggle"> </span>
-                        <div class="pcoded-search-box ">
-                            <!-- <div id="prefetch"> -->
-                            <input type="text" placeholder="Search" class="form-control custom-search" name="category_search_name" id="category_search_name">
-                            <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
-                            <!-- </div> -->
-                        </div>
-                    </div>
-                </form>
                 <!-- Tampilkan text 'Hallo, selamat datang..!' -->
                 <?php if (isset($_SESSION['email']) && !empty($_SESSION['email'])) {
                     //jika user tidak kosong, maka beri button logout
@@ -21,6 +10,13 @@
                     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation"><?= $user['nama_role']; ?> - <?= $user['nama']; ?></div>
 
                     <ul class="pcoded-item pcoded-left-item">
+                        <li class="active">
+                            <a href="index.html">
+                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
                         <!-- QUERY MENU -->
                         <?php
                         $role_id = $this->session->userdata('role_id');
@@ -38,9 +34,7 @@
                                 <a href="javascript:void(0)">
                                     <span class="pcoded-micon"><i class="<?= $m['icon']; ?>"></i></span>
                                     <span class="pcoded-mtext"><?= $m['menu']; ?></span>
-
                                 </a>
-
                                 <?php
                                 $menu_id = $m['menu_id'];
                                 $querySubMenu = "select * from `user_sub_menu` where `menu_id` = $menu_id and `is_active` = 1";

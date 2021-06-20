@@ -31,6 +31,24 @@
                 <div class="page-body">
                     <div class="row">
                         <div class="col-sm-12">
+                            <!-- Simple Breadcrumb card start -->
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-8">
+                                            <div class="pcoded-search">
+                                                <span class="searchbar-toggle"> </span>
+                                                <div class="pcoded-search-box ">
+                                                    <input type="text" onkeyup="live_search()" id="in_live_search" value="" placeholder="Cari obat..." autofocus>
+                                                    <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Badges card start -->
                             <div class="card">
                                 <?php
@@ -45,12 +63,7 @@
                                         </td>
                                     </tr>
                                 <?php endif ?>
-
                                 <div class="card-block">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" onkeyup="live_search()" id="in_live_search" value="" placeholder="Cari obat...">
-                                        <small style="text-align: center;" class="form-text text-muted">Pencarian live</small>
-                                    </div>
                                     <div id="daftar_obat" class="row">
                                         <!-- <?php
                                                 foreach ($obat as $key) { ?>
