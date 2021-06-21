@@ -106,7 +106,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <h5 class="text-left card-subtitle text-info">Jumlah belanjaan kamu Rp. <?= number_format($this->cart->total(), 0, ',', '.') ?>,-</h5>
-                                                <form action="<?= base_url('user/cekout') ?>" method="POST">
+                                                <form action="<?= base_url('resep/cekout') ?>" method="POST">
                                                     <?php foreach ($this->cart->contents() as $p) : ?>
                                                         <input type="hidden" class="form-control form-control-round" value="<?= $p['name']; ?>" name="nama_obat[]" readonly>
                                                         <input type="hidden" class="form-control form-control-round" value="<?= $p['price'] ?>" name="harga_jual[]" readonly>

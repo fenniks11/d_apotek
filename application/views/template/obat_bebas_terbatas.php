@@ -62,6 +62,11 @@
                                             <div class="col-lg-4 col-xl-3 col-sm-12">
                                                 <a href="<?= base_url('obat/detail_obat/') . $key['id_obat'] ?>">
                                                     <div class="badge-box">
+                                                        <div class="text-right">
+                                                            <a href="<?= base_url('dashboard/tambah_keranjang/') . $key['id_obat'] ?>">
+                                                                <div class="btn btn-sm btn-primary waves-effect " data-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Tambah ke keranjang"><i class="ti-shopping-cart"> Tambah</i></div>
+                                                            </a>
+                                                        </div><br>
                                                         <div class="sub-title"><a href="<?= base_url('obat/detail_obat/') . $key['id_obat'] ?>"><?= $key['nama_obat'] ?>
 
                                                         </div>

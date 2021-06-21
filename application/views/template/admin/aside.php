@@ -14,7 +14,7 @@
                         $role_id = $this->session->userdata('role_id');
                         $queryMenu = "SELECT * from `user_menu` join `user_access_menu` 
                                     on `user_menu`.`id` = `user_access_menu`.`menu_id` 
-                                    where `user_access_menu`.`role_id` = $role_id order by `user_access_menu`.`menu_id` asc
+                                    where `user_access_menu`.`role_id` = $role_id and `is_active` = 1 order by `user_access_menu`.`menu_id` asc
                                    ";
 
                         $menu = $this->db->query($queryMenu)->result_array();

@@ -4,11 +4,6 @@
         <!-- Main-body start -->
         <div class="main-body">
             <div class="page-wrapper">
-                <?php if (validation_errors()) { ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?= validation_errors(); ?>
-                    </div>
-                <?php } ?>
                 <?= $this->session->flashdata('message'); ?>
                 <!-- Page-header start -->
                 <div class="page-header card">
@@ -46,15 +41,15 @@
                             <!-- Direction arrow start -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Pengelolaan Sub Menu</h5>
+                                    <h5>Pengelolaan Menu</h5>
                                     <div class="btn-text-right mr-3">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="fa fa-plus"> Tambah Sub Menu</i>
+                                            <i class="fa fa-plus"> Tambah Menu</i>
                                         </button>
                                     </div>
                                     <br><br><br>
-                                    <form action="<?= base_url('menu/sub_menu') ?>" method="POST">
+                                    <form action="<?= base_url('menu') ?>" method="POST">
                                         <div class="row">
                                             <div class="col-2"></div>
                                             <div class="col-8">
@@ -81,7 +76,7 @@
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Form Tambah Menu Baru</h5>
@@ -90,28 +85,26 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="<?= base_url('menu/tambah_subMenu') ?>" method="POST">
+                                                <form action="<?= base_url('menu/tambah') ?>" method="POST">
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Pilih menu</label>
+                                                        <div class="col-sm">
+                                                            <input type="text" class="form-control form-control-round" name="menu" placeholder="Masukkan judul menu..">
+                                                        </div>
+                                                        <?= form_error('menu') ?>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm">
+                                                            <input type="text" class="form-control form-control-round" name="icon" placeholder="Masukkan Icon">
+                                                        </div>
+                                                        <?= form_error('icon') ?>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Select Box</label>
                                                         <div class="col-sm-10">
-                                                            <select class="form-control form-control-round" name="menu_id">
-                                                                <option value=" ">Pilih Salah Satu</option>
-                                                                <?php foreach ($menu as $m) { ?>
-                                                                    <option value="<?= $m['id'] ?>"><?= $m['menu']; ?></option>
-                                                                <?php } ?>
+                                                            <select name="role_id" class="form-control">
+                                                                <option value="1">Admin</option>
+                                                                <option value="2">Member</option>
                                                             </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Judul Sub Menu</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control form-control-round" name="judul" placeholder="Masukkan judul sub menu">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Url Sub Menu</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control form-control-round" name="url" placeholder="Masukkan url">
                                                         </div>
                                                     </div>
                                             </div>
@@ -126,19 +119,18 @@
                                 <div class="card-block table-border-style">
                                     <div class="table-responsive">
                                         <h5 class="title ml-4 text-muted"> Hasil: <?= $total_rows ?></h5>
-                                        <table class="table text-center">
+                                        <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Judul Sub Menu</th>
-                                                    <th>Judul Menu</th>
-                                                    <th>Url</th>
+                                                    <th>Menu</th>
+                                                    <th>User Akses</th>
                                                     <th colspan="2" class="text-center">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                if (empty($sub_menu)) :
+                                                if (empty($menu)) :
                                                 ?>
                                                     <tr>
                                                         <td colspan="5">
@@ -150,14 +142,17 @@
                                                     </tr>
                                                 <?php endif ?>
                                                 <?php
-                                                foreach ($sub_menu as $sm) { ?>
+                                                foreach ($menu as $m) { ?>
                                                     <tr>
-                                                        <th scope="row"><?= ++$start; ?></th>
-                                                        <td><?= $sm['judul'] ?></td>
-                                                        <td><?= $sm['menu'] ?></td>
-                                                        <td><?= $sm['url'] ?></td>
+                                                        <th scope="row"><?= ++$start ?></th>
+                                                        <td><?= $m['menu'] ?></td>
+                                                        <td><?= $m['nama_role'] ?></td>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-outline-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Sub Menu <?= $sm['id'] ?>"><a href="<?= base_url('menu/edit_submenu/'  . $sm['id']) ?>"><i class="fas fa-pencil-alt"> Edit Sub Menu</i></a>
+                                                            <button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Kategori Obat"><a href="<?= base_url('menu/edit_menu/' . $m['id']) ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                            </button>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button type="button" class="btn btn-danger btn-lg waves-effect" data-toggle="tooltip" data-placement="top" title="Hapus Menu"><a href="<?= base_url('menu/hapus_menu/'  . $m['id']) ?>  " onclick="return confirm('Apakah anda yakin menu ini dihapus?')"><i class=" fas fa-fw fa-trash"></i></a>
                                                             </button>
                                                         </td>
                                                     </tr>
