@@ -472,6 +472,7 @@ class M_apotek extends CI_Model
         // ambil nilai dari view v_invoice
         return $this->db->get('v_invoice', $limit, $start)->result_array();
     }
+
     function allInvoice()
     {
         $this->db->select('*');
@@ -564,23 +565,43 @@ class M_apotek extends CI_Model
         }
     }
 
+    public function get_menu($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('menu', $keyword);
+        }
+        $this->db->select('user_menu.*, user_access_menu.menu_id, user_access_menu.role_id, user_role.nama_role');
+        $this->db->join('user_access_menu', 'user_menu.id = user_access_menu.menu_id');
+        $this->db->join('user_role', 'user_access_menu.role_id = user_role.role_id');
+        $this->db->order_by('user_menu.id', 'DESC');
+        return $this->db->get('user_menu', $limit, $start)->result_array();
+    }
+
     function get_subMenu($limit, $start, $keyword = null)
     {
         if ($keyword) {
-            $this->db->like('nama_obat', $keyword);
+            $this->db->like('judul', $keyword);
         }
-
+        $this->db->select('user_sub_menu.*, menu');
         $this->db->join('user_menu', 'user_sub_menu.menu_id = user_menu.id');
-        $this->db->join('user_access_menu', 'user_access_menu.menu_id = user_menu.id');
-        $this->db->join('user_role', 'user_role.role_id = user_access_menu.role_id');
         $this->db->order_by('user_sub_menu.menu_id');
         return $this->db->get('user_sub_menu', $limit, $start)->result_array();
+    }
 
-        // $query = "SELECT `user_sub_menu`.*, `user_access_menu`.*, `user_menu`.`menu`, `user_role`.`nama_role` 
-        // from `user_sub_menu` join `user_menu`
-        //  on `user_sub_menu`.`menu_id` =  `user_menu`.`id` join `user_access_menu` on 
-        //  `user_access_menu`.`menu_id` =  `user_menu`.`id` join `user_role` 
-        //  on `user_role`.`role_id` = `user_access_menu`.`role_id`";
-        // return $this->db->query($query, $limit, $start)->result_array();
+    // Obat yang dibeli user
+    function user_obat($table, $where, $limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('no_ref', $keyword);
+        }
+        // $this->db->select('*');
+        // $this->db->select_sum('invoice.banyak');
+        // $this->db->group_by('no_ref');
+        // $this->db->order_by('tgl_beli', 'DESC');
+        // ambil nilai dari view v_invoice
+        // $this->db->limit();
+        $this->db->select('tgl_beli, no_ref, grandtotal');
+        $this->db->distinct();
+        return $this->db->get($table, $where, $limit, $start)->result_array();
     }
 }

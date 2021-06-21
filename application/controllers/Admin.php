@@ -8,16 +8,22 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         cek_login(); // fungsi helper utk menghalangi user yg tidak berhak untuk mengakses
+        // cek_menu();
         $this->data['exp'] = $this->m_apotek->countex();
+        $data['user'] = $this->db->get_where('data_user', ['email' => $this->session->userdata('email')])->row_array();
         $this->data['nullstock'] = $this->m_apotek->countstock();
+        if ($data['user'] && $data['user']['role_id'] == 2) {
+            redirect('auth/block');
+        };
 
         //Controller penting   
     }
 
     public function index()
     {
-        $data['user'] = $this->db->get_where('data_user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $data['user'] = $this->db->get_where('data_user', ['email' => $this->session->userdata('email')])->row_array();
+        // cek jika dia admin, kembalikan dia ke halaman admin!
         $data['judul'] = 'Admin';
         $data['exp'] = $this->data['exp'];
         $data['nullstock'] = $this->data['nullstock'];

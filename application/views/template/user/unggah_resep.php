@@ -19,11 +19,11 @@
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
-                                        <a href="<?= base_url('user') ?>">
+                                        <a href="<?= base_url('dashboard') ?>">
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="<?= base_url('user/unggah_resep') ?>"><?= $judul; ?></a>
+                                    <li class="breadcrumb-item"><a href="<?= base_url('resep/unggah_resep') ?>"><?= $judul; ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -56,7 +56,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' . $error_upload . '</div>';
                                     }
 
-                                    echo form_open_multipart('user/proses_resep'); ?>
+                                    echo form_open_multipart('resep/proses_resep'); ?>
                                     <div class="form-group row">
                                         <input type="hidden" value="<?= $user['user_id']; ?>" name="id">
                                         <label class="col-sm-2 col-form-label">Gambar Resep</label>

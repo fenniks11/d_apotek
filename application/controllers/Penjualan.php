@@ -9,6 +9,7 @@ class Penjualan extends CI_Controller
     {
         parent::__construct();
         cek_login();
+        cek_menu();
         $this->load->library('form_validation');
         $this->load->model('M_mahasiswa', '', TRUE);
         $this->load->model('M_apotek', '', TRUE);
@@ -82,8 +83,8 @@ class Penjualan extends CI_Controller
         // mengambil data nama user dan alamatnya.
         $data['get_user'] = $this->m_apotek->getUser($member_email);
         $where = array('no_ref' => $no_ref);
-        $data['invoice'] = $this->m_apotek->show_data($where, 'invoice')->result();
-        $data['show_invoice'] = $this->m_apotek->show_invoice($where)->result();
+        $data['invoice'] = $this->m_apotek->show_data('invoice', $where)->result();
+        $data['show_invoice'] = $this->m_apotek->show_invoice('show_invoice', $where)->result();
         // 
         $this->load->view('template/admin/header', $data);
         $this->load->view('template/admin/navbar', $data);

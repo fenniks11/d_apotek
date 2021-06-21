@@ -10,6 +10,7 @@ class Pembelian extends CI_Controller
     {
         parent::__construct();
         cek_login();
+        cek_menu();
         $this->load->library('form_validation');
         $this->load->model('M_mahasiswa', '', TRUE);
         $this->load->model('M_apotek', '', TRUE);

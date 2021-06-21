@@ -57,7 +57,7 @@ class Auth extends CI_Controller
                     if ($user['role_id'] == 1) {
                         redirect('admin');
                     } else {
-                        redirect('user');
+                        redirect('dashboard');
                     }
                 } else { // jika password salah
                     $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Password anda salah!</div>');
@@ -162,5 +162,11 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('role_id');
         $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Kamu berhasil keluar. Silakan login kembali!</div>');
         redirect('dashboard');
+    }
+
+
+    public function blocked()
+    {
+        echo 'akses blok!';
     }
 }

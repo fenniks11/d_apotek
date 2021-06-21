@@ -96,7 +96,7 @@
                                             <tr>
                                                 <td colspan="5">
                                                     <div class="alert alert-danger" role="alert">
-                                                        Data Tidak Ditemukan!
+                                                        Data obat dengan kata <b>"<?= $keyword; ?>"</b> Tidak Ditemukan!
                                                     </div>
 
                                                 </td>

@@ -19,13 +19,13 @@
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
-                                        <a href="<?= base_url('user') ?>">
+                                        <a href="<?= base_url('dashboard') ?>">
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="<?= base_url('user/unggah_resep') ?>">Unggah Resep</a>
+                                    <li class="breadcrumb-item"><a href="<?= base_url('resep/unggah_resep') ?>">Unggah Resep</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="<?= base_url('user/user_resep') ?>"><?= $judul; ?></a>
+                                    <li class="breadcrumb-item"><a href="<?= base_url('resep/user_resep') ?>"><?= $judul; ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -95,7 +95,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' . $error_upload . '</div>';
                                                                                     }
 
-                                                                                    echo form_open_multipart('user/cekout_resep/' . $key['id_resep']); ?>
+                                                                                    echo form_open_multipart('resep/cekout_resep/' . $key['id_resep']); ?>
 
                                                                                     <div class="form-group row">
                                                                                         <input type="hidden" name="id_resep" value="<?= $key['id_resep']; ?>">
@@ -141,7 +141,7 @@
 
                                 </div>
                                 <?php if ($key['id_resep'] == " ") { ?>
-                                    <span class="text-info">Belum mengunggah resep apapun. <a href="<?= base_url('user/unggah_resep') ?>">Unggah Sekarang.</a></span>
+                                    <span class="text-info">Belum mengunggah resep apapun. <a href="<?= base_url('resep/unggah_resep') ?>">Unggah Sekarang.</a></span>
                                 <?php } ?>
                             <?php } ?>
                         </div>

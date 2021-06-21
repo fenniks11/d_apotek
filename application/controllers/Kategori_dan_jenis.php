@@ -8,6 +8,11 @@ class Kategori_dan_jenis extends CI_Controller
     {
         parent::__construct();
         cek_login();
+        $data['user'] = $this->db->get_where('data_user', ['email' => $this->session->userdata('email')])->row_array();
+        $this->data['nullstock'] = $this->m_apotek->countstock();
+        if ($data['user'] && $data['user']['role_id'] == 2) {
+            redirect('auth/block');
+        };
         $this->load->library('form_validation');
         $this->load->model('M_mahasiswa', '', TRUE);
         $this->load->model('M_apotek', '', TRUE);

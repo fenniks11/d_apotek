@@ -114,8 +114,7 @@ class Dashboard extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         // END PAGINATION
         $data['obat'] =  $this->m_apotek->obatBebas($config['per_page'],  $data['start'],  $data['keyword']);
-        // print_r($data['obat']);
-        // die;
+
         $this->load->view('template/header', $data);
         $this->load->view('template/navbar', $data);
         $this->load->view('template/aside', $data);
