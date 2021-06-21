@@ -148,13 +148,10 @@
                                                         <td><?= $m['menu'] ?></td>
                                                         <td><?= $m['nama_role'] ?></td>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Kategori Obat"><a href="<?= base_url('menu/edit_menu/' . $m['id']) ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                            <button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Menu"><a href="<?= base_url('menu/edit_menu/' . $m['id']) ?>"><i class="fas fa-pencil-alt"></i></a>
                                                             </button>
                                                         </td>
-                                                        <td class="text-center">
-                                                            <button type="button" class="btn btn-danger btn-lg waves-effect" data-toggle="tooltip" data-placement="top" title="Hapus Menu"><a href="<?= base_url('menu/hapus_menu/'  . $m['id']) ?>  " onclick="return confirm('Apakah anda yakin menu ini dihapus?')"><i class=" fas fa-fw fa-trash"></i></a>
-                                                            </button>
-                                                        </td>
+
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>

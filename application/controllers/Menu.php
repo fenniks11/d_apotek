@@ -159,7 +159,7 @@ class Menu extends CI_Controller
         <div class="row align-items-end">
             <div class="col-lg">
                     <div class = "alert alert-success" role="alert">
-                    Menu baru berhasil ditambahkan.
+                    Sub menu baru berhasil ditambahkan.
                     </div>
                 </div>
             </div>
@@ -280,7 +280,7 @@ class Menu extends CI_Controller
             <div class="row align-items-end">
                 <div class="col-lg">
                         <div class = "alert alert-success" role="alert">
-                        Menu baru berhasil diubah.
+                        Sub Menu berhasil diubah.
                         </div>
                     </div>
                 </div>
