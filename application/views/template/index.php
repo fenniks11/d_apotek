@@ -239,7 +239,7 @@
 <script>
     var obat = <?= json_encode(($obat)) ?>, // array
         list = [],
-        tambah_keranjang = `<?= base_url('dashboard/tambah_keranjang') ?> `,
+        tambah_keranjang = `<?= base_url('dashboard/tambah_keranjang') ?>`,
         detail_obat = `<?= base_url('dashboard/detail_obat') ?>`,
         gambar_obat = `<?= base_url('assets/gambar_obat/') ?>`;
 
