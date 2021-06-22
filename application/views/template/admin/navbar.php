@@ -81,12 +81,12 @@
                         </a>
                         <ul class="show-notification profile-notification">
                             <li>
-                                <a href="#!">
+                                <a href="<?= base_url('profil/edit') ?>">
                                     <i class="ti-settings"></i> Settings
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="<?= base_url('profil') ?>">
                                     <i class="ti-user"></i> Profile
                                 </a>
                             </li>
