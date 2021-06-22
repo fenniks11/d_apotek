@@ -570,7 +570,7 @@ class M_apotek extends CI_Model
         if ($keyword) {
             $this->db->like('menu', $keyword);
         }
-        $this->db->select('user_menu.*, user_access_menu.menu_d, user_access_menu.role_id, user_role.nama_role');
+        $this->db->select('user_menu.*, user_access_menu.menu_id, user_access_menu.role_id, user_role.nama_role');
         $this->db->join('user_access_menu', 'user_menu.id = user_access_menu.menu_id');
         $this->db->join('user_role', 'user_access_menu.role_id = user_role.role_id');
         $this->db->order_by('user_menu.id', 'DESC');
