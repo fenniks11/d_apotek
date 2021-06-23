@@ -50,44 +50,46 @@
                             </div>
                         </div>
                         <div class="card-block table-border-style">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Obat</th>
-                                            <th>Kategori & Jenis</th>
-                                            <th>Stok</th>
-                                            <th>Kadaluarsa</th>
-                                            <th>Harga Jual</th>
-                                            <th>Suplier</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if (count($stokHabis) == 0) { ?>
+                            <div class="card-block">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
                                             <tr>
-                                                <td colspan="8" class="text-center text-info">
-                                                    <h3>Stok Obat Masih Terpenuhi.</h3>
-                                                </td>
+                                                <th>No</th>
+                                                <th>Nama Obat</th>
+                                                <th>Kategori & Jenis</th>
+                                                <th>Stok</th>
+                                                <th>Kadaluarsa</th>
+                                                <th>Harga Jual</th>
+                                                <th>Suplier</th>
                                             </tr>
-
-                                        <?php } else { ?>
-                                            <?php $no = 1;
-                                            foreach ($stokHabis as $sH) { ?>
+                                        </thead>
+                                        <tbody>
+                                            <?php if (count($stokHabis) == 0) { ?>
                                                 <tr>
-                                                    <th scope="row"><?= $no++; ?></th>
-                                                    <td><?= $sH->nama_obat ?></td>
-                                                    <td><?= $sH->nama_kategori ?> - <?= $sH->jenis ?></td>
-                                                    <td><?= $sH->stok ?></td>
-                                                    <td><?= $sH->tgl_expired ?></td>
-                                                    <td><?= $sH->harga_default ?></td>
-                                                    <td><?= $sH->nama_sup ?></td>
+                                                    <td colspan="8" class="text-center text-info">
+                                                        <h3>Stok Obat Masih Terpenuhi.</h3>
+                                                    </td>
                                                 </tr>
 
+                                            <?php } else { ?>
+                                                <?php $no = 1;
+                                                foreach ($stokHabis as $sH) { ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $no++; ?></th>
+                                                        <td><?= $sH->nama_obat ?></td>
+                                                        <td><?= $sH->nama_kategori ?> - <?= $sH->jenis ?></td>
+                                                        <td><?= $sH->stok ?></td>
+                                                        <td><?= $sH->tgl_expired ?></td>
+                                                        <td><?= $sH->harga_default ?></td>
+                                                        <td><?= $sH->nama_sup ?></td>
+                                                    </tr>
+
+                                                <?php } ?>
                                             <?php } ?>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,44 +111,46 @@
                             </div>
                         </div>
                         <div class="card-block table-border-style">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Obat</th>
-                                            <th>Kategori & Jenis</th>
-                                            <th>Stok</th>
-                                            <th>Kadaluarsa</th>
-                                            <th>Harga Jual</th>
-                                            <th>Suplier</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if (count($stokHampirHabis) == 0) { ?>
+                            <div class="card-block">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
                                             <tr>
-                                                <td colspan="8" class="text-center text-info">
-                                                    <h3>Stok Obat Masih Terpenuhi.</h3>
-                                                </td>
+                                                <th>No</th>
+                                                <th>Nama Obat</th>
+                                                <th>Kategori & Jenis</th>
+                                                <th>Stok</th>
+                                                <th>Kadaluarsa</th>
+                                                <th>Harga Jual</th>
+                                                <th>Suplier</th>
                                             </tr>
-
-                                        <?php } else { ?>
-                                            <?php $no = 1;
-                                            foreach ($stokHampirHabis as $sH) { ?>
+                                        </thead>
+                                        <tbody>
+                                            <?php if (count($stokHampirHabis) == 0) { ?>
                                                 <tr>
-                                                    <th scope="row"><?= $no++; ?></th>
-                                                    <td><?= $sH->nama_obat ?></td>
-                                                    <td><?= $sH->nama_kategori ?> - <?= $sH->jenis ?></td>
-                                                    <td><?= $sH->stok ?></td>
-                                                    <td><?= $sH->tgl_expired ?></td>
-                                                    <td><?= $sH->harga_default ?></td>
-                                                    <td><?= $sH->nama_sup ?></td>
+                                                    <td colspan="8" class="text-center text-info">
+                                                        <h3>Stok Obat Masih Terpenuhi.</h3>
+                                                    </td>
                                                 </tr>
 
+                                            <?php } else { ?>
+                                                <?php $no = 1;
+                                                foreach ($stokHampirHabis as $sH) { ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $no++; ?></th>
+                                                        <td><?= $sH->nama_obat ?></td>
+                                                        <td><?= $sH->nama_kategori ?> - <?= $sH->jenis ?></td>
+                                                        <td class="text-danger"><?= $sH->stok ?></td>
+                                                        <td><?= $sH->tgl_expired ?></td>
+                                                        <td><?= $sH->harga_default ?></td>
+                                                        <td><?= $sH->nama_sup ?></td>
+                                                    </tr>
+
+                                                <?php } ?>
                                             <?php } ?>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

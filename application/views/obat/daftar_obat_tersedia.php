@@ -38,72 +38,72 @@
                         <?= $this->session->flashdata('message'); ?>
                         <div class="card-header">
                             <h5><?= $judul; ?></h5>
-                            <span>Tabel nama-nama <code>obat</code> dari semua kategori</span>
+                            <span>Daftar obat yang tersedia dan tanggal kadaluarsanya belum jatuh tempo.</span>
                         </div>
                         <div class="card-block table-border-style">
-                            <div class="row mt-3 mb-3 ml-3">
-                                <div class="col-md-6">
-                                    <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Export to CSV">CSV
-                                    </button>
-                                    <button type="button" class="btn btn-default waves-effect " data-toggle="tooltip" data-placement="top" title="Export to Excel">Excel
-                                    </button>
-                                    <button type="button" class="btn btn-danger waves-effect btn-out-dotted" data-toggle="tooltip" data-placement="top" title="Cetak"><i class="ti-printer"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Salin pada keyboard">Salin
-                                    </button>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="btn-text-right mr-3">
-                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Obat">
-                                            <a href="<?= base_url('obat/tambah') ?>">
-                                                <i class="ti-plus"></i>
-                                            </a>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="btn-text-right mr-3">
+                                <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Obat">
+                                    <a href="<?= base_url('obat/tambah') ?>">
+                                        <i class="ti-plus"> Obat</i>
+                                    </a>
+                                </button>
                             </div>
 
-                            <!-- <div id="hasil"></div> -->
-                            <div class="table-responsive">
-
-                                <h5 class="title ml-4 text-muted"> Hasil: <?= $total_rows ?></h5>
-                                <table class="table mx-auto" style="width: 95%;">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Nama Obat</th>
-                                            <th>Harga Default</th>
-                                            <th>Stok</th>
-                                            <th>Tanggal Exp</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($obat as $key) { ?>
-                                            <tr>
-                                                <th scope="row"><?= ++$start; ?></th>
-                                                <td><?= $key['nama_obat'] ?></td>
-                                                <td>Rp.<?= number_format($key['harga_jual'], 0, ',', '.') ?>,-</td>
-                                                <td><?= $key['stok_obat']; ?></td>
-                                                <td class="text-primary"><?= $key['tgl_expired'] ?></td>
-                                            </tr>
-                                        <?php } ?>
-
-                                    </tbody>
-                                </table>
-                                <?= $this->pagination->create_links(); ?>
-                            </div>
                         </div>
 
+                        <!-- <div id="hasil"></div> -->
+                        <div class="table-responsive">
+
+                            <h5 class="title ml-4 text-muted"> Hasil: <?= $total_rows ?></h5>
+                            <table class="table mx-auto" style="width: 95%;">
+                                <thead>
+                                    <div class="card-block">
+                                        <div class="card-header-right">
+                                            <form action="<?= base_url('obat/obat_tersedia') ?>" method="POST">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="keyword" placeholder="Cari nama obat" aria-label="Username" aria-describedby="basic-addon1" autofocus autocomplete="on">
+                                                    <div class="input-group-append">
+                                                        <input class="btn btn-primary" type="submit" name="submit" id="basic-addon1">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Nama Obat</th>
+                                        <th>Harga Default</th>
+                                        <th>Stok</th>
+                                        <th>Tanggal Exp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <?php
+                                    foreach ($obat as $key) { ?>
+                                        <tr>
+                                            <th scope="row"><?= ++$start; ?></th>
+                                            <td><?= $key['nama_obat'] ?></td>
+                                            <td>Rp.<?= number_format($key['harga_jual'], 0, ',', '.') ?>,-</td>
+                                            <td><?= $key['stok_obat']; ?></td>
+                                            <td class="text-primary"><?= $key['tgl_expired'] ?></td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                            <?= $this->pagination->create_links(); ?>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            <div id="styleSelector">
-
-            </div>
-
+        </div>
+        <div id="styleSelector">
 
         </div>
+
+
     </div>
+</div>
 </div>

@@ -54,7 +54,7 @@
                                             <div class="col-2"></div>
                                             <div class="col-8">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="keyword" placeholder="Cari Obat" aria-label="Username" aria-describedby="basic-addon1" autofocus autocomplete="on">
+                                                    <input type="text" class="form-control" name="keyword" placeholder="Cari Menu" aria-label="Username" aria-describedby="basic-addon1" autofocus autocomplete="on">
                                                     <div class="input-group-append">
                                                         <input class="btn btn-primary" type="submit" name="submit" id="basic-addon1">
                                                     </div>
@@ -117,46 +117,48 @@
                                     </div>
                                 </div>
                                 <div class="card-block table-border-style">
-                                    <div class="table-responsive">
-                                        <h5 class="title ml-4 text-muted"> Hasil: <?= $total_rows ?></h5>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Menu</th>
-                                                    <th>User Akses</th>
-                                                    <th colspan="2" class="text-center">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if (empty($menu)) :
-                                                ?>
+                                    <div class="card-block">
+                                        <div class="table-responsive">
+                                            <h5 class="title ml-4 text-muted"> Hasil: <?= $total_rows ?></h5>
+                                            <table class="table">
+                                                <thead>
                                                     <tr>
-                                                        <td colspan="5">
-                                                            <div class="alert alert-danger" role="alert">
-                                                                Data dengan kata <b>"<?= $keyword; ?>"</b> Tidak Ditemukan!
-                                                            </div>
-
-                                                        </td>
+                                                        <th>No</th>
+                                                        <th>Menu</th>
+                                                        <th>User Akses</th>
+                                                        <th colspan="2" class="text-center">Aksi</th>
                                                     </tr>
-                                                <?php endif ?>
-                                                <?php
-                                                foreach ($menu as $m) { ?>
-                                                    <tr>
-                                                        <th scope="row"><?= ++$start ?></th>
-                                                        <td><?= $m['menu'] ?></td>
-                                                        <td><?= $m['nama_role'] ?></td>
-                                                        <td class="text-center">
-                                                            <button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Menu"><a href="<?= base_url('menu/edit_menu/' . $m['id']) ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                            </button>
-                                                        </td>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    if (empty($menu)) :
+                                                    ?>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <div class="alert alert-danger" role="alert">
+                                                                    Data dengan kata <b>"<?= $keyword; ?>"</b> Tidak Ditemukan!
+                                                                </div>
 
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                        <?= $this->pagination->create_links(); ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif ?>
+                                                    <?php
+                                                    foreach ($menu as $m) { ?>
+                                                        <tr>
+                                                            <th scope="row"><?= ++$start ?></th>
+                                                            <td><?= $m['menu'] ?></td>
+                                                            <td><?= $m['nama_role'] ?></td>
+                                                            <td class="text-center">
+                                                                <button type="button" class="btn btn-warning waves-effect" data-toggle="tooltip" data-placement="top" title="Edit Menu"><a href="<?= base_url('menu/edit_menu/' . $m['id']) ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                                </button>
+                                                            </td>
+
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                            <?= $this->pagination->create_links(); ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

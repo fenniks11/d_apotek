@@ -43,12 +43,14 @@ class Penjualan extends CI_Controller
         }
 
         $this->db->like('member_email', $data['keyword']);
-        $this->db->from('invoice');
+        $this->db->or_like('nama_admin', $data['keyword']);
+        $this->db->or_like('no_ref', $data['keyword']);
+        $this->db->from('v_invoice');
         $this->db->order_by('tgl_beli', 'DESC');
         $config['base_url'] = 'http://localhost/d_apotek/penjualan/daftar/';
         $config['total_rows'] = $this->db->count_all_results();
         $data['total_rows'] =  $config['total_rows'];
-        $config['per_page'] = 5;
+        $config['per_page'] = 3;
 
         // inisialisasi
         $this->pagination->initialize($config);
@@ -139,7 +141,7 @@ class Penjualan extends CI_Controller
         }
 
         $this->db->insert_batch('invoice', $data_jual);
-        $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data Obat Berhasil Ditambahkan.</div>');
+        $this->session->set_flashdata('message', '<div class = "alert alert-success" role="alert">Data penjualan berhasil ditambahkan.</div>');
         redirect('penjualan/daftar');
     }
     public function user_search()

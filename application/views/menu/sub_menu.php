@@ -59,7 +59,7 @@
                                             <div class="col-2"></div>
                                             <div class="col-8">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="keyword" placeholder="Cari Obat" aria-label="Username" aria-describedby="basic-addon1" autofocus autocomplete="on">
+                                                    <input type="text" class="form-control" name="keyword" placeholder="Cari Sub Menu" aria-label="Username" aria-describedby="basic-addon1" autofocus autocomplete="on">
                                                     <div class="input-group-append">
                                                         <input class="btn btn-primary" type="submit" name="submit" id="basic-addon1">
                                                     </div>

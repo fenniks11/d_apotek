@@ -52,27 +52,15 @@
                         <div class="card-block table-border-style">
                             <div class="table-responsive">
                                 <div class="row mt-3 mb-3 ml-3">
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Export to CSV">CSV
+                                    <div class="btn-text-right mr-3">
+                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Kategori Obat">
+                                            <a href="<?= base_url('kategori_dan_jenis/tambah_kategori') ?>">
+                                                <i class="ti-plus"> Kategori</i>
+                                            </a>
                                         </button>
-                                        <button type="button" class="btn btn-default waves-effect " data-toggle="tooltip" data-placement="top" title="Export to Excel">Excel
-                                        </button>
-                                        <button type="button" class="btn btn-danger waves-effect btn-out-dotted" data-toggle="tooltip" data-placement="top" title="Cetak"><i class="ti-printer"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Salin pada keyboard">Salin
-                                        </button>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="btn-text-right mr-3">
-                                            <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Kategori Obat">
-                                                <a href="<?= base_url('kategori_dan_jenis/tambah_kategori') ?>">
-                                                    <i class="ti-plus"></i>
-                                                </a>
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
+
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -118,26 +106,15 @@
                         </div>
                         <div class="card-block table-border-style">
                             <div class="row mt-3 mb-3 ml-3">
-                                <div class="col-md-6">
-                                    <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Export to CSV">CSV
-                                    </button>
-                                    <button type="button" class="btn btn-default waves-effect " data-toggle="tooltip" data-placement="top" title="Export to Excel">Excel
-                                    </button>
-                                    <button type="button" class="btn btn-danger waves-effect btn-out-dotted" data-toggle="tooltip" data-placement="top" title="Cetak"><i class="ti-printer"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Salin pada keyboard">Salin
-                                    </button>
 
+                                <div class="btn-text-right mr-3">
+                                    <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Jenis Obat">
+                                        <a href="<?= base_url('kategori_dan_jenis/tambah_jenis') ?>">
+                                            <i class="ti-plus"> Jenis</i>
+                                        </a>
+                                    </button>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="btn-text-right mr-3">
-                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Jenis Obat">
-                                            <a href="<?= base_url('kategori_dan_jenis/tambah_jenis') ?>">
-                                                <i class="ti-plus"></i>
-                                            </a>
-                                        </button>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="table-responsive">
                                 <table class="table">

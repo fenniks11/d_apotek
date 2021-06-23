@@ -71,7 +71,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Nomor Telepon <sup class="text-danger">*</sup></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="telp" value="<?= $suplier[0]->telp ?>">
+                                                <input type="text" class="form-control" name="telp" value="<?= $suplier[0]->telp ?>" readonly>
                                                 <?= form_error('telp', '<small class="text-danger">', '</small>') ?>
                                             </div>
                                         </div>

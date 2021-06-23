@@ -45,6 +45,7 @@
                                 </div>
                                 <form action="<?= base_url('menu/edit_menu/'  . $menu['menu_id']) ?>" method="POST">
                                     <input type="hidden" name="menu_id" value="<?= $menu['menu_id']; ?>" readonly>
+                                    <input type="hidden" name="id" value="<?= $menu['id']; ?>" readonly>
                                     <div class="card-block tooltip-icon button-list">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Judul Menu</label>

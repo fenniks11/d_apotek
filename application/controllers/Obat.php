@@ -77,11 +77,23 @@ class Obat extends CI_Controller
 
         // PAGINATION
         $this->load->library('pagination'); //inisialisasi load library
+        // ambil data keyword
+        if (!($this->uri->segment(2))) {
+            $data['keyword'] = $this->session->unset_userdata('keyword');
+        }
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
 
+        $this->db->like('nama_obat', $data['keyword']);
+        $this->db->order_by('stok_obat', 'DESC');
         $config['base_url'] = 'http://localhost/d_apotek/obat/obat_tersedia/';
         $config['total_rows'] = $this->m_apotek->count_obat();
         $data['total_rows'] =  $config['total_rows'];
-        $config['per_page'] = 5;
+        $config['per_page'] = 2;
 
         //INISIALISASI
         $this->pagination->initialize($config);

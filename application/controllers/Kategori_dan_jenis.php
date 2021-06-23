@@ -150,7 +150,7 @@ class Kategori_dan_jenis extends CI_Controller
         $data['kategori'] = $this->m_apotek->edit_data($where, 'kategori')->result();
         $data = array('id_kategori' => $id_kategori);
         $this->m_apotek->del_kat($data);
-        $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Data Obat Berhasil Dihapus.</div>');
+        $this->session->set_flashdata('message', '<div class = "alert alert-danger" role="alert">Data Berhasil Dihapus.</div>');
         redirect('kategori_dan_jenis/daftar');
     }
 

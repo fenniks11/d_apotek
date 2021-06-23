@@ -75,8 +75,12 @@ class M_apotek extends CI_Model
         // select nama_obat, harga_default, harga_beli, stok, tgl_expired from obat join detail_obat on obat.id_obat = detail_obat.id_obat  order by obat.id_obat DESC.
         // return $this->db->get('obat', $limit, $start)->result_array();
     }
-    public function obatTersedia($limit, $start)
+    public function obatTersedia($limit, $start, $keyword = null)
     {
+        if ($keyword) {
+            $this->db->like('nama_obat', $keyword);
+        }
+
         // $this->db->join('detail_obat', 'obat.id_obat = detail_obat.id_obat');
         // $this->db->join('suplier', 'obat.id_suplier = suplier.id_suplier');
         // $this->db->order_by('obat.id_obat', 'DESC');
@@ -570,11 +574,12 @@ class M_apotek extends CI_Model
         if ($keyword) {
             $this->db->like('menu', $keyword);
         }
-        $this->db->select('user_menu.*, user_access_menu.menu_id, user_access_menu.role_id, user_role.nama_role');
-        $this->db->join('user_access_menu', 'user_menu.id = user_access_menu.menu_id');
-        $this->db->join('user_role', 'user_access_menu.role_id = user_role.role_id');
-        $this->db->order_by('user_menu.id', 'DESC');
-        return $this->db->get('user_menu', $limit, $start)->result_array();
+        // $this->db->select('user_menu.*, user_access_menu.menu_id, user_access_menu.role_id, user_role.nama_role');
+        // $this->db->join('user_access_menu', 'user_menu.id = user_access_menu.menu_id');
+        // $this->db->join('user_role', 'user_access_menu.role_id = user_role.role_id');
+        // $this->db->order_by('user_menu.d', 'DESC');
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get('get_menu', $limit, $start)->result_array();
     }
 
     function get_subMenu($limit, $start, $keyword = null)

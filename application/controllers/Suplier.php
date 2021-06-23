@@ -104,7 +104,7 @@ class Suplier extends CI_Controller
         $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
         $this->form_validation->set_rules('nama_sup', 'Nama Suplier', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat Suplier', 'required|trim');
-        $this->form_validation->set_rules('telp', 'Nomor Telepon Suplier', 'required|trim|is_natural|min_length[7]|max_length[12]|is_unique[suplier.telp]');
+
         $id_suplier = $this->input->post('id_suplier');
         $nama_sup = $this->input->post('nama_sup');
         $alamat = $this->input->post('alamat');
@@ -126,7 +126,8 @@ class Suplier extends CI_Controller
             $where = array(
                 'id_suplier' => $id_suplier
             );
-            $this->m_apotek->update_data($where, $data, 'suplier');
+            $this->db->where($where);
+            $this->db->update('suplier', $data);
 
             $this->session->set_flashdata('message', ' <div class="page-header card">
             <div class="row align-items-end">

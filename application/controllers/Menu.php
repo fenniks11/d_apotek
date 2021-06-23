@@ -184,12 +184,15 @@ class Menu extends CI_Controller
         $this->db->join('user_access_menu', 'user_menu.id = user_access_menu.menu_id');
         $this->db->join('user_role', 'user_role.role_id = user_access_menu.role_id');
         $data['menu'] = $this->db->get_where('user_menu', $where)->row_array();
+
         $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
         $this->form_validation->set_rules('menu', 'Judul Menu', 'required|trim');
         $this->form_validation->set_rules('icon', 'Icon Menu', 'required|trim');
         $this->form_validation->set_rules('role_id', 'User Role', 'required|trim');
         $this->form_validation->set_rules('is_active', 'Is Active', 'required|trim');
-        $menu_id = $this->input->post('menu_id');
+        // $menu_id = $this->input->post('menu_id');
+        $id = $this->input->post('id');
+        // $id = $this->input->post('menu_id');
         $menu = $this->input->post('menu');
         $icon = $this->input->post('icon');
         $role_id = $this->input->post('role_id');
@@ -207,20 +210,18 @@ class Menu extends CI_Controller
                 'icon' => $icon,
                 'is_active' => $is_active
             );
+
             $where1 = array(
                 'id' => $menu_id
             );
             $where2 = array(
-                'menu_id' => $menu_id
+                'id' => $id
             );
-            $update = $this->db->update('user_menu', $menu, $where1);
-            // print_r($update);
+            $q1 = $this->db->update('user_menu', $menu, $where1);
             $akses = array(
                 'role_id' => $role_id
             );
-            $update = $this->db->update('user_access_menu', $akses, $where2);
-            // print_r($update);
-            // die;
+            $q2 = $this->db->update('user_access_menu', $akses, $where2);
             $this->session->set_flashdata('message', ' <div class="page-header card">
             <div class="row align-items-end">
                 <div class="col-lg">

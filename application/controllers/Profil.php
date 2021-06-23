@@ -8,7 +8,7 @@ class Profil extends CI_Controller
     {
         parent::__construct();
         cek_login(); // fungsi helper utk menghalangi user yg tidak berhak untuk mengakses
-        cek_menu();
+        // cek_menu();
         $data['user'] = $this->db->get_where('data_user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('M_mahasiswa', '', TRUE);
     }

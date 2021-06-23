@@ -37,8 +37,8 @@
                     <?= $this->session->flashdata('message'); ?>
                     <div class="card">
                         <div class="card-header">
-                            <h5>Nama-nama obat terdaftar</h5>
-                            <span>Tabel nama-nama <code>obat</code> dari semua kategori</span>
+                            <h5>Nama-nama obat terdaftar di D'APOTEK</h5>
+                            <span>Daftar Obat tersedia, kadaluarsa maupun yang sudah habis.</span>
                             <div class="card-header-right">
                                 <form action="<?= base_url('obat') ?>" method="POST">
                                     <div class="input-group mb-3">
@@ -52,26 +52,15 @@
                         </div>
                         <div class="card-block table-border-style">
                             <div class="row mt-3 mb-3 ml-3">
-                                <div class="col-md-6">
-                                    <a class="btn btn-default waves-effect" href="<?= base_url('obat/export_csv') ?>" data-toggle="tooltip" data-placement="top" title="Export to CSV">CSV
-                                    </a>
-                                    <button type="button" class="btn btn-default waves-effect " data-toggle="tooltip" data-placement="top" title="Export to Excel">Excel
-                                    </button>
-                                    <button type="button" class="btn btn-danger waves-effect btn-out-dotted" data-toggle="tooltip" data-placement="top" title="Cetak"><i class="ti-printer"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" data-placement="top" title="Salin pada keyboard">Salin
-                                    </button>
 
+                                <div class="btn-text-right mr-3 ml-3">
+                                    <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Obat">
+                                        <a href="<?= base_url('obat/tambah') ?>">
+                                            <i class="ti-plus"> Obat</i>
+                                        </a>
+                                    </button>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="btn-text-right mr-3">
-                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Tambah Obat">
-                                            <a href="<?= base_url('obat/tambah') ?>">
-                                                <i class="ti-plus"></i>
-                                            </a>
-                                        </button>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <!-- <div id="hasil"></div> -->
