@@ -125,7 +125,8 @@
                             <div class="col-md-6 col-xl-4">
                                 <div class="card widget-card-1">
                                     <div class="card-block-small">
-                                        <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
+                                        <i class="fas fa-medkit bg-c-yellow card1-icon"></i>
+
                                         <span class="text-c-yellow f-w-600">Total Obat Terjual</span>
                                         <h4><?= $tot_user; ?></h4>
                                         <div>
